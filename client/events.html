@@ -1,0 +1,9 @@
+<input type='text' ng-model='search' placeholder='filter' />
+<div class="events">
+  <div class="event" ng-repeat="event in list | filter: search">
+    <div class="info">
+      <div class="title">{{event.title}}</div>
+      <div class="original">{{event.location}}</div>
+    </div>
+  </div>
+</div>
