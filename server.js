@@ -1,3 +1,4 @@
+/* jshint esversion:6 */
 const express = require('express');
 const bodyparser = require('body-parser');
 
@@ -10,7 +11,8 @@ app.use( express.static(__dirname+'/client') );
 app.get('/', (req, res)=>{
   res.send('/index.html');
 });
+app.set('port', port);
 
-app.listen(port, ip, ()=>{
+app.listen(app.get('port'), ()=>{
   console.log('listening on', port);
 });
