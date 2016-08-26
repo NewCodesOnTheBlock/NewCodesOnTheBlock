@@ -1,10 +1,21 @@
 <!Doctype html>
-<html>
+<html ng-app='events'>
+<head>
+  <meta charset="utf-8" />
+  <title>EventSpot</title>
+  <link rel='stylesheet' text='text/css' href='style.css' />
+</head>
 <body>
+  <h1>EventSpot</h1>
+  <div ng-view></div>
   <div>
     <p>
       Hello World
     </p>
   </div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
+<script src='app.js'></script>
+<script src='services.js'></script>
 </body>
 </html>
