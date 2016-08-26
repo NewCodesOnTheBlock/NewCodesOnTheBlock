@@ -12,12 +12,12 @@ app.get('/', (req, res)=>{
   res.send('/index.html');
 });
 
-app.post('/events',(req,res)=>{
-   //API call to events 
-   request('https://api.seatgeek.com/2/performers/266',(request,response)=>{
-         res.send(response);
-   });
-});
+// app.post('/events',(req,res)=>{
+//    //API call to events 
+//    request('https://api.seatgeek.com/2/performers/266',(request,response)=>{
+//          res.send(response);
+//    });
+// });
 app.get('/artist',(req,res)=>{
 	//get artist info from req.body
 	//API call to spotify to get artist playlist id
