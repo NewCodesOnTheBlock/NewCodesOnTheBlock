@@ -13,14 +13,14 @@ angular.module('events.services', [])
 
   const findEvents = () => {
     return $http({
-      method: 'POST',
-      url: '/events',
+      method: 'GET',
+      url: 'https://api.seatgeek.com/2/events?taxonomies.name=concert&geoip=true',
       data: event
     });
   };
 
   return {
-    getEvents: getEvents,
+    getArtist: getArtist,
     findEvents: findEvents
   };
 
