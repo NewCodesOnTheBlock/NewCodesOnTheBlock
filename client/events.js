@@ -1,11 +1,12 @@
 angular.module('events.list', [])
 
-.controller('EventsCtrl', [$scope, ($scope, Events) => {
+.controller('EventsCtrl', ["$scope", "Events", function($scope, Events) {
   $scope.list = [];
   $scope.findEvents = () => {
     Events.findEvents()
     .then((events) => {
-      $scope.list.push({});
+      console.log(events);
+      $scope.list.push(events);
       })
       .catch((error) => {
         console.error(error);
