@@ -14,5 +14,5 @@ angular.module('events', [
       templateUrl: 'events.html',
       controller: 'SongCtrl'
     })
-    .otherwise({redirectTo: '/'})
-})
+    .otherwise({redirectTo: '/'});
+});

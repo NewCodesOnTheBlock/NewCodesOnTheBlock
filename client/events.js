@@ -5,7 +5,7 @@ angular.module('events.list', [])
   $scope.findEvents = () => {
     Events.findEvents()
     .then((events) => {
-      $scope.list.push({})
+      $scope.list.push({});
       })
       .catch((error) => {
         console.error(error);
