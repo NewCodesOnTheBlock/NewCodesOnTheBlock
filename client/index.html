@@ -7,16 +7,18 @@
   <title>EventSpot</title>
   <!-- <link rel='stylesheet' text='text/css' href='style.css' /> -->
 </head>
-<body>
+<body ng-controller="EventsCtrl">
   <h1>EventSpot</h1>
-  <div ng-controller="EventsCtrl">
-    <div>{{list}}</div>
+  <input type='text' ng-model="search" placeholder='Find Your Event'/>
+  <h3>{{meta.geolocation.display_name}}
+  <div ng-repeat='events in list | filter: search'>
+    <div>Artist: {{events.title}}</div>
+    <div>Venue: {{events.venue.name}}, {{events.venue.city}}</div>
+    <div>
+      <a href='{{events.url}}' target="_blank"><span>Tickets</span></a>
+    </div>
   </div>
-  <div>
-    <p>
-      Hello World
-    </p>
-  </div>
+
 <script src='app.js'></script>
 <script src='services.js'></script>
 <script src='events.js'></script>
