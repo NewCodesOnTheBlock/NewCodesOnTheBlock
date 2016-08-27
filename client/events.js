@@ -9,7 +9,7 @@ angular.module('events.list', [])
       const eventList = events.data.events;
       eventList.forEach(function(event){
         $scope.list.push(event);
-      })
+      });
       })
       .catch((error) => {
         console.error(error);
