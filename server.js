@@ -8,13 +8,20 @@ const ip = process.env.IP || '127.0.0.1';
 const request = require('request');
 app.use( express.static(__dirname+'/client') );
 
-// app.enable('trust proxy'); //
-// app.set('trust proxy', ['loopback', 'linklocal', 'uniquelocal']);
+app.enable('trust proxy');
+app.set('trust proxy', ['loopback', 'linklocal', 'uniquelocal']);
 
 console.log("fsdfjkhdks");
 app.get('/ip', (req, res)=>{
-  console.log((req.connection.remoteAddress));
-  res.send(req.connection.remoteAddress);
+  var geo = navigator.geoloction;
+  geo.getCurrentPosition(function(position) {
+    var geolocation = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
+    };
+    var ll = geolocation.lat+','+geolocation.lng;
+    res.send(ll);
+  });
 });
 
 // app.post('/events',(req,res)=>{
