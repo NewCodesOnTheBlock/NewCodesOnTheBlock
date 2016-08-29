@@ -1,19 +1,24 @@
 /* jshint esversion:6 */
 const express = require('express');
 const bodyparser = require('body-parser');
+const session = require('express-session');
 const app = express();
 const port = process.env.PORT || 3000;
 const ip = process.env.IP || '127.0.0.1';
 const request = require('request');
-
 app.use( express.static(__dirname+'/client') );
 
-app.get('/', (req, res)=>{
-  res.send('/index.html');
+// app.enable('trust proxy'); //
+// app.set('trust proxy', ['loopback', 'linklocal', 'uniquelocal']);
+
+console.log("fsdfjkhdks");
+app.get('/ip', (req, res)=>{
+  console.log((req.connection.remoteAddress));
+  res.send(req.connection.remoteAddress);
 });
 
 // app.post('/events',(req,res)=>{
-//    //API call to events 
+//    //API call to events
 //    request('https://api.seatgeek.com/2/performers/266',(request,response)=>{
 //          res.send(response);
 //    });
