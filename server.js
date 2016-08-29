@@ -2,26 +2,20 @@
 const express = require('express');
 const bodyparser = require('body-parser');
 const session = require('express-session');
+const requestIp = require('request-ip');
 const app = express();
 const port = process.env.PORT || 3000;
 const ip = process.env.IP || '127.0.0.1';
 const request = require('request');
 app.use( express.static(__dirname+'/client') );
-
 app.enable('trust proxy');
 app.set('trust proxy', ['loopback', 'linklocal', 'uniquelocal']);
 
+app.use(requestIp.mw());
 console.log("fsdfjkhdks");
 app.get('/ip', (req, res)=>{
-  var geo = navigator.geoloction;
-  geo.getCurrentPosition(function(position) {
-    var geolocation = {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude
-    };
-    var ll = geolocation.lat+','+geolocation.lng;
-    res.send(ll);
-  });
+  var ip = req.clientIp;
+  res.send(ip+'\n');
 });
 
 // app.post('/events',(req,res)=>{
