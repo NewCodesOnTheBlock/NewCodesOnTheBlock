@@ -3,19 +3,23 @@ const express = require('express');
 const bodyparser = require('body-parser');
 const session = require('express-session');
 const requestIp = require('request-ip');
+const request = require('request');
 const app = express();
 const port = process.env.PORT || 3000;
 const ip = process.env.IP || '127.0.0.1';
-const request = require('request');
+
 app.use( express.static(__dirname+'/client') );
 app.enable('trust proxy');
 app.set('trust proxy', ['loopback', 'linklocal', 'uniquelocal']);
 
 app.use(requestIp.mw());
-console.log("fsdfjkhdks");
+
 app.get('/ip', (req, res)=>{
-  var ip = req.clientIp;
-  res.send(ip+'\n');
+  var clientIp = req.clientIp;
+  request('https://api.seatgeek.com/2/events?taxonomies.name=concert&geoip='+clientIp, function(error,response,body){
+    if (error) console.error(error);
+    res.send(body);
+  });
 });
 
 // app.post('/events',(req,res)=>{

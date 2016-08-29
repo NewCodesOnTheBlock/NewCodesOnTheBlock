@@ -6,8 +6,8 @@ angular.module('events', [
 
 .config(($routeProvider) => {
   $routeProvider
-    .when('/events', {
-      templateUrl: 'events.html',
+    .when('/ip', {
+      templateUrl: 'index.html',
       controller: 'EventsCtrl'
     })
     .when('/artist', {
