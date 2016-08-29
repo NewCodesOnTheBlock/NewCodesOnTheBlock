@@ -14,7 +14,7 @@ angular.module('events.services', [])
   const findEvents = () => {
     return $http({
       method: 'GET',
-      url: 'https://api.seatgeek.com/2/events?taxonomies.name=concert&geoip=true',
+      url: '/ip',
       data: event
     });
   };
