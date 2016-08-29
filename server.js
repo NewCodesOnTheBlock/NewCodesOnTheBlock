@@ -16,7 +16,7 @@ app.use(requestIp.mw());
 
 app.get('/ip', (req, res)=>{
   var clientIp = req.clientIp;
-  request('https://api.seatgeek.com/2/events?taxonomies.name=concert&geoip='+clientIp, function(error,response,body){
+  request('https://api.seatgeek.com/2/events?taxonomies.name=concert&geoip='+clientIp+'&range=12mi', function(error,response,body){
     if (error) console.error(error);
     res.send(body);
   });
