@@ -50,7 +50,8 @@ app.post('/artist', (req, res)=> {
     if (!error && response.statusCode === 200) {
     //if artist exist in spotify
       let bodyData = JSON.parse(body);
-      if (bodyData.artists.items.length > 1) {
+      console.log(bodyData);
+      if (bodyData.artists.items.length >0) {
         let id = bodyData.artists.items[0].uri;
         let link = `https://embed.spotify.com/?uri=${id}`;
         console.log(link,"link");
