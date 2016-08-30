@@ -4,16 +4,15 @@ angular.module('events.list', [])
   $scope.list = [];
   $scope.findEvents = () => {
     Events.findEvents()
-    .then((events) => {
-      console.log(events.data.events);
-      const eventList = events.data.events;
-      eventList.forEach(function(event){
-        $scope.list.push(event);
-      });
+      .then((concert) => {
+        const eventList = concert.data.events;
+        eventList.forEach(function(event) {
+          $scope.list.push(event);
+        });
       })
       .catch((error) => {
         console.error(error);
-    });
+      });
   };
   $scope.findEvents();
 }]);

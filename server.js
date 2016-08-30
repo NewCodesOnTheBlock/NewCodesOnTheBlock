@@ -15,10 +15,25 @@ app.set('trust proxy', ['loopback', 'linklocal', 'uniquelocal']);
 app.use(requestIp.mw());
 
 app.get('/ip', (req, res)=>{
-  var clientIp = req.clientIp;
-  request('https://api.seatgeek.com/2/events?taxonomies.name=concert&geoip='+clientIp+'&range=12mi&per_page=50', function(error,response,body){
+  let clientIp = req.clientIp;
+  request('https://api.seatgeek.com/2/events?taxonomies.name=concert&geoip='+clientIp+'&range=30mi&per_page=25', function(error,response,body){
     if (error) console.error(error);
-    res.send(body);
+  // console.log('thissssss',JSON.parse(response.body.events[0].title));
+  let bodyData = JSON.parse(body);
+  console.log(typeof bodyData);
+  let eventsData = {};
+  eventsData.meta = {};  //page name for secondary calls
+  eventsData.events = [];
+  bodyData.events.forEach(function(event) {
+    let concert = {};
+    concert.title = event.title;
+    concert.venueName = event.venue.name;
+    concert.city = event.venue.display_location;
+    concert.url = event.url;
+    eventsData.events.push(concert);
+  });
+  console.log(eventsData);
+    res.send(JSON.stringify(eventsData));
   });
 });
 
