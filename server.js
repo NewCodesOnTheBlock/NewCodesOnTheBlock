@@ -36,19 +36,43 @@ app.get('/ip', (req, res)=>{
     res.send(JSON.stringify(eventsData));
   });
 });
-
-app.get('/artist',(req,res)=>{
-	//get artist info from req.body
-	//API call to spotify to get artist playlist id
-	//send back src for front-end <iframe> tag
-    res.send('https://embed.spotify.com/?uri=spotify:user:spotify:playlist:1yHZ5C3penaxRdWR7LRIOb'); //playlist ID: 6rqhFgbbKwnb9MLmUQDhG6
+app.get('/artist', (req, res)=> {
+  //get artist_name and genre from req.body
+  //send API call to spotify to ask for artist/genre
+  let artist = req.body.artist;
+  let genre = req.body.genre;
+  artist = artist.split(' ').join('+');
+  let input = artist;
+  let url = `https://api.spotify.com/v1/search?q=${input}&type=artist`;    
+  //send http request for artist: 
+  request(url, (error, response, body) => {
+    if (!error && response.statusCode === 200) {
+    //if artist exist in spotify
+      let bodyData = JSON.parse(body);
+      if (bodyData.artists.items.length > 1) {
+        let id = bodyData.artists.items[0].uri;
+        let link = `https://embed.spotify.com/?uri=${id}`;
+        res.send(link); //send back src for front-end <iframe> tag
+      } else { //if artist NOT exist in spotify
+        //send http request for genre
+        let input = genre;
+        request(url, (error, response, body) => {
+          if (!error && response.statusCode === 200) {
+            let bodyData = JSON.parse(body);
+            let id = bodyData.artists.items[0].uri;
+            let link = `https://embed.spotify.com/?uri=${id}`;
+            res.send(link); //send back src for front-end <iframe> tag
+          }
+        });
+      }
+    }
+  });
 });
-
-app.get('/book',(req,res)=>{
+app.get('/book', (req, res)=>{
     //get artist/event info from req.body
     //API call to seatgeek for specific event url
     //redirect to specific url
-    res.redirect('https://seatgeek.com/');//for simplicity, redirect to seatgeek for now
+  res.redirect('https://seatgeek.com/');//for simplicity, redirect to seatgeek for now
 });
 
 app.set('port', port);
