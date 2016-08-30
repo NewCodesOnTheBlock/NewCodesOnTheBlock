@@ -11,7 +11,7 @@ const ip = process.env.IP || '127.0.0.1';
 app.use( express.static(__dirname+'/client') );
 app.enable('trust proxy');
 app.set('trust proxy', ['loopback', 'linklocal', 'uniquelocal']);
-
+app.use(bodyparser.json());
 app.use(requestIp.mw());
 
 app.get('/ip', (req, res)=>{
@@ -20,7 +20,7 @@ app.get('/ip', (req, res)=>{
     if (error) console.error(error);
   // console.log('thissssss',JSON.parse(response.body.events[0].title));
   let bodyData = JSON.parse(body);
-  console.log(typeof bodyData);
+  //console.log(typeof bodyData);
   let eventsData = {};
   eventsData.meta = {};  //page name for secondary calls
   eventsData.events = [];
@@ -32,13 +32,14 @@ app.get('/ip', (req, res)=>{
     concert.url = event.url;
     eventsData.events.push(concert);
   });
-  console.log(eventsData);
+  //console.log(eventsData);
     res.send(JSON.stringify(eventsData));
   });
 });
-app.get('/artist', (req, res)=> {
+app.post('/artist', (req, res)=> {
   //get artist_name and genre from req.body
   //send API call to spotify to ask for artist/genre
+  //console.log(req);
   let artist = req.body.artist;
   let genre = req.body.genre;
   artist = artist.split(' ').join('+');
@@ -52,6 +53,7 @@ app.get('/artist', (req, res)=> {
       if (bodyData.artists.items.length > 1) {
         let id = bodyData.artists.items[0].uri;
         let link = `https://embed.spotify.com/?uri=${id}`;
+        console.log(link,"link");
         res.send(link); //send back src for front-end <iframe> tag
       } else { //if artist NOT exist in spotify
         //send http request for genre
