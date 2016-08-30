@@ -15,19 +15,27 @@ app.set('trust proxy', ['loopback', 'linklocal', 'uniquelocal']);
 app.use(requestIp.mw());
 
 app.get('/ip', (req, res)=>{
-  var clientIp = req.clientIp;
-  request('https://api.seatgeek.com/2/events?taxonomies.name=concert&geoip='+clientIp+'&range=12mi', function(error,response,body){
+  let clientIp = req.clientIp;
+  request('https://api.seatgeek.com/2/events?taxonomies.name=concert&geoip='+clientIp+'&range=30mi&per_page=25', function(error,response,body){
     if (error) console.error(error);
-    res.send(body);
+  // console.log('thissssss',JSON.parse(response.body.events[0].title));
+  let bodyData = JSON.parse(body);
+  console.log(typeof bodyData);
+  let eventsData = {};
+  eventsData.meta = {};  //page name for secondary calls
+  eventsData.events = [];
+  bodyData.events.forEach(function(event) {
+    let concert = {};
+    concert.title = event.title;
+    concert.venueName = event.venue.name;
+    concert.city = event.venue.display_location;
+    concert.url = event.url;
+    eventsData.events.push(concert);
+  });
+  console.log(eventsData);
+    res.send(JSON.stringify(eventsData));
   });
 });
-
-// app.post('/events',(req,res)=>{
-//    //API call to events
-//    request('https://api.seatgeek.com/2/performers/266',(request,response)=>{
-//          res.send(response);
-//    });
-// });
 app.post('/artist', (req, res)=> {
   //get artist_name and genre from req.body
   //send API call to spotify to ask for artist/genre
@@ -60,14 +68,13 @@ app.post('/artist', (req, res)=> {
     }
   });
 });
-app.get('/book',(req,res)=>{
+
+app.get('/book', (req, res)=>{
     //get artist/event info from req.body
     //API call to seatgeek for specific event url
     //redirect to specific url
-    res.redirect('https://seatgeek.com/');//for simplicity, redirect to seatgeek for now
+  res.redirect('https://seatgeek.com/');//for simplicity, redirect to seatgeek for now
 });
-
-
 
 app.set('port', port);
 
