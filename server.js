@@ -37,20 +37,26 @@ app.post('/artist', (req, res)=> {
   let input = artist;
   let url = `https://api.spotify.com/v1/search?q=${input}&type=artist`;    
   //send http request for artist: 
-  request(url, (request, response) => {
+  request(url, (error, response, body) => {
     //if artist exist in spotify
-    if (response.artists.items.length > 1) {
-      let id = response.artists.uri;
-      let link = `https://embed.spotify.com/?uri=${id}`;
-      res.send(link); //send back src for front-end <iframe> tag
-    } else { //if artist NOT exist in spotify
-      //send http request for genre
-      let input = genre;
-      request(url, (request, response) => {
-        let id = response.artists.uri;
+    if (!error && response.statusCode === 200) {
+      body = JSON.parse(body);
+      if (body.artists.items.length > 1) {
+        let id = body.artists.uri;
         let link = `https://embed.spotify.com/?uri=${id}`;
         res.send(link); //send back src for front-end <iframe> tag
-      });
+      } else { //if artist NOT exist in spotify
+        //send http request for genre
+        let input = genre;
+        request(url, (error, response, body) => {
+          if (!error && response.statusCode === 200) {
+            body = JSON.parse(body);
+            let id = body.artists.uri;
+            let link = `https://embed.spotify.com/?uri=${id}`;
+            res.send(link); //send back src for front-end <iframe> tag
+          }
+        });
+      }
     }
   });
 });
