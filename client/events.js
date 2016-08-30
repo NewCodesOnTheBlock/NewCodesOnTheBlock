@@ -15,4 +15,15 @@ angular.module('events.list', [])
       });
   };
   $scope.findEvents();
+  $scope.getArtist = (artist) => {
+    Events.getArtist(artist)
+     .then((data) => {
+       console.log(data, 'data from events.js');
+       let myEl = angular.element( document.querySelector( '#player' ) );
+       myEl.html('<iframe src = '+ data +'><iframe>');
+     })
+     .catch((error) => {
+       console.error(error);
+     });
+  };
 }]);
