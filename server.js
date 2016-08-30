@@ -36,7 +36,7 @@ app.get('/ip', (req, res)=>{
     res.send(JSON.stringify(eventsData));
   });
 });
-app.post('/artist', (req, res)=> {
+app.get('/artist', (req, res)=> {
   //get artist_name and genre from req.body
   //send API call to spotify to ask for artist/genre
   let artist = req.body.artist;
@@ -46,11 +46,11 @@ app.post('/artist', (req, res)=> {
   let url = `https://api.spotify.com/v1/search?q=${input}&type=artist`;    
   //send http request for artist: 
   request(url, (error, response, body) => {
-    //if artist exist in spotify
     if (!error && response.statusCode === 200) {
-      body = JSON.parse(body);
-      if (body.artists.items.length > 1) {
-        let id = body.artists.uri;
+    //if artist exist in spotify
+      let bodyData = JSON.parse(body);
+      if (bodyData.artists.items.length > 1) {
+        let id = bodyData.artists.items[0].uri;
         let link = `https://embed.spotify.com/?uri=${id}`;
         res.send(link); //send back src for front-end <iframe> tag
       } else { //if artist NOT exist in spotify
@@ -58,8 +58,8 @@ app.post('/artist', (req, res)=> {
         let input = genre;
         request(url, (error, response, body) => {
           if (!error && response.statusCode === 200) {
-            body = JSON.parse(body);
-            let id = body.artists.uri;
+            let bodyData = JSON.parse(body);
+            let id = bodyData.artists.items[0].uri;
             let link = `https://embed.spotify.com/?uri=${id}`;
             res.send(link); //send back src for front-end <iframe> tag
           }
@@ -68,7 +68,6 @@ app.post('/artist', (req, res)=> {
     }
   });
 });
-
 app.get('/book', (req, res)=>{
     //get artist/event info from req.body
     //API call to seatgeek for specific event url
