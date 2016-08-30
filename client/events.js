@@ -20,7 +20,7 @@ angular.module('events.list', [])
      .then((data) => {
        console.log(data, 'data from events.js');
        let myEl = angular.element( document.querySelector( '#player' ) );
-       myEl.html('<iframe src = '+ data +'><iframe>');
+       myEl.html('<iframe src = ' + data + ' width="300" height="380" frameborder="0" allowtransparency="true"></iframe>');
      })
      .catch((error) => {
        console.error(error);
