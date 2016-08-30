@@ -28,15 +28,14 @@ app.get('/ip', (req, res)=>{
 //          res.send(response);
 //    });
 // });
-app.get('/artist', (req, res)=> {
+app.post('/artist', (req, res)=> {
   //get artist_name and genre from req.body
   //send API call to spotify to ask for artist/genre
   let artist = req.body.artist;
   let genre = req.body.genre;
   artist = artist.split(' ').join('+');
-  genre = genre;
   let input = artist;
-  let url = `https://api.spotify.com/v1/search?q=${artist}&type=artist`;    
+  let url = `https://api.spotify.com/v1/search?q=${input}&type=artist`;    
   //send http request for artist: 
   request(url, (request, response) => {
     //if artist exist in spotify
