@@ -12,12 +12,13 @@
   <input type='text' ng-model="search" placeholder='Find Your Event'/>
   <h3>{{meta.geolocation.display_name}}
   <div ng-repeat='events in list | filter: search'>
-    <div>Artist: {{events.title}}</div>
-  <div>Venue: {{events.venueName}}, {{events.city}}</div>
+    <div ng-click="getArtist(events.title)">Artist: {{events.title}}</div>
+    <div>Venue: {{events.venueName}}, {{events.city}}</div>
     <div>
       <a href='{{events.url}}' target="_blank"><span>Tickets</span></a>
     </div>
   </div>
+  <div id='player'></div>
 
 <script src='app.js'></script>
 <script src='services.js'></script>

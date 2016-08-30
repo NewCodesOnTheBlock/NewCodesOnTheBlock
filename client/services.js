@@ -1,10 +1,13 @@
 angular.module('events.services', [])
 
 .factory('Events', ($http) => {
-  const getArtist = () => {
+  const getArtist = (artist) => {
     return $http({
-      method: 'GET',
-      url: '/artist'
+      method: 'POST',
+      url: '/artist',
+      json: true,
+      header: {'content-type': 'application/json'},
+      data: JSON.stringify({artist: artist})
     })
     .then((resp) => {
       return resp.data;
