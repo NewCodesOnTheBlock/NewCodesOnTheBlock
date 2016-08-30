@@ -58,7 +58,7 @@ app.post('/artist', (req, res)=> {
       } else { //if artist NOT exist in spotify
         //send http request for genre
         let input = genre;
-        url = `https://api.spotify.com/v1/search?q=${input}&type=artist`;
+        url = `https://api.spotify.com/v1/search?q=genre:${input}&type=artist`;
         request(url, (error, response, body) => {
           if (!error && response.statusCode === 200) {
             let bodyData = JSON.parse(body);
