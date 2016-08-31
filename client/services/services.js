@@ -17,7 +17,7 @@ angular.module('events.services', [])
   const findEvents = () => {
     return $http({
       method: 'GET',
-      url: '/ip',
+      url: '/events',
       data: event
     });
   };

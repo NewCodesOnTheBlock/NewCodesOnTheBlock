@@ -1,0 +1,26 @@
+{
+  "name": "newcodesontheblock",
+  "main": "app.js",
+  "authors": [
+    "New Codes On The Block"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/NewCodesOnTheBlock/NewCodesOnTheBlock",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "client/lib"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "bootstrap": "^3.3.7",
+    "angular-bootstrap": "^2.1.3",
+    "angular-route": "^1.5.8",
+    "angular-touch": "^1.5.8",
+    "angular-animate": "^1.5.8",
+    "angular-ui-router": "^0.3.1"
+  }
+}

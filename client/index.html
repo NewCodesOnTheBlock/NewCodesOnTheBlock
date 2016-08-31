@@ -1,27 +1,27 @@
 <!Doctype html>
-<html ng-app='events'>
-<head>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
-  <meta charset="utf-8" />
-  <title>EventSpot</title>
-  <!-- <link rel='stylesheet' text='text/css' href='style.css' /> -->
-</head>
-<body ng-controller="EventsCtrl">
-  <h1>EventSpot</h1>
-  <input type='text' ng-model="search" placeholder='Find Your Event'/>
-  <h3>{{meta.geolocation.display_name}}
-  <div ng-repeat='events in list | filter: search'>
-    <div ng-click="getArtist(events.title)">Artist: {{events.title}}</div>
-    <div>Venue: {{events.venueName}}, {{events.city}}</div>
-    <div>
-      <a href='{{events.url}}' target="_blank"><span>Tickets</span></a>
-    </div>
-  </div>
-  <div id='player'></div>
+<html ng-app="events">
 
-<script src='app.js'></script>
-<script src='services.js'></script>
-<script src='events.js'></script>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap-theme.css">
+  <link rel="stylesheet" text="text/css" href="styles.css">
+  <title>EventSpot</title>
+</head>
+
+<body>
+  <h1>EventSpot</h1>
+  <div ui-view>
+  </div>
+  <script src="lib/angular/angular.js"></script>
+  <script src="lib/angular-touch/angular-touch.js"></script>
+  <script src="lib/angular-animate/angular-animate.js"></script>
+  <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="events/events.js"></script>
+  <script src="events/events.player.js"></script>
+  <script src="auth/login.js"></script>
+  <script src="services/services.js"></script>
+  <script src="app.js"></script>
 </body>
+
 </html>

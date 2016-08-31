@@ -1,0 +1,14 @@
+<input type="text" ng-model="search" placeholder="Find Your Event" />
+<h3>{{meta.geolocation.display_name}}</h3>
+<div style="display:inline-block;">
+  <div ng-repeat="events in list | filter: search">
+    <div ng-click="getArtist(events.title)">Artist: {{events.title}}</div>
+    <div>Venue: {{events.venueName}}, {{events.city}}</div>
+    <div>
+      <a href="{{events.url}}" target="_blank"><span>Tickets</span></a>
+    </div>
+  </div>
+</div>
+<div ui-view ng-animate="'animate'" class="col-sm-6" id="player" style="display:inline-block;float:right;">
+
+</div>
