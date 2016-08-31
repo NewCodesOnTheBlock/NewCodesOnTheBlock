@@ -87,14 +87,14 @@ app.get('/book', (req, res)=>{
 //login
 app.get('/login', (req, res) => {
   console.log('inside /login');
-console.log('*', 'https://' + ip + ':' + port + '/callback');
+console.log('*', 'https://' + app.get('ip') + ':' + app.get('port') + '/callback');
   let scope = 'user-read-private user-read-email';
   res.redirect('https://accounts.spotify.com/authorize?' + querystring.stringify({
     response_type: 'code',
     client_id: client_id(),
     scope: scope,
-    redirect_uri: app.get('ip') + ':' + port + '/callback'
-    //redirect_uri: 'http://localhost:3000/callback'
+    // redirect_uri: app.get('ip') + ':' + app.get('port') + '/callback'
+    redirect_uri: 'http://localhost:3000/callback'
   }));
 });
 
@@ -102,13 +102,13 @@ console.log('*', 'https://' + ip + ':' + port + '/callback');
 app.get('/callback', (req, res) => {
   console.log('in callback');
   let code = req.query.code || null;
-  console.log('*', ip + ':' + port + '/callback');
+  console.log('*', app.get('ip') + ':' + app.get('port') + '/callback');
   let authOptions = {
     url: 'https://accounts.spotify.com/api/token',
     form: {
       code: code,
-      redirect_uri: app.get('ip') + ':' + port + '/callback',
-      // redirect_uri: 'http://localhost:3000/callback',
+      // redirect_uri: app.get('ip') + ':' + app.get('port') + '/callback',
+      redirect_uri: 'http://localhost:3000/callback',
       grant_type: 'authorization_code'
     },
     headers: {
@@ -168,8 +168,6 @@ app.get('/refresh_token', (req, res) => {
   });
 });
 
-app.set('port', port);
-
 app.listen(app.get('port'), ()=>{
-  console.log('listening on', port);
+  console.log('listening on', app.get('port'));
 });
