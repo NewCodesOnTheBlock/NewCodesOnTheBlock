@@ -7,22 +7,23 @@ angular.module('events', [
 ])
 
 .config(['$urlRouterProvider', '$stateProvider', ($urlRouterProvider, $stateProvider) => {
-  //In ur.router, urlRouterProvider is equivalent to ngroute $routeProvider
+  //In ui.router, $stateProvider is similart to ngroute $routeProvider but can also render additional nested views.
   $urlRouterProvider.otherwise('/');
 
   // States allow us to show specific views within the same html page.
   $stateProvider
-    .state('events', {
-      url: '/events',
-      templateUrl: 'events/events.html',
-      controller: 'EventsCtrl'
-    })
     .state('login', {
       url: '/',
       templateUrl: 'auth/login.html',
       controller: 'LoginCtrl'
     })
-    // This is a child state to the "events" state. Still needs work but ideally we can have this show the player without altering our main url.
+    .state('events', {
+      url: '/events',
+      templateUrl: 'events/events.html',
+      controller: 'EventsCtrl'
+    })
+    // This is a child state to the "events" state.
+    // Still needs work but ideally we can have this show the player without altering our main url.
     .state('events.play', {
       url:'/:play',
       templateUrl: 'events/events.player.html',
