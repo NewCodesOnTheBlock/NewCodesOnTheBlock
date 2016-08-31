@@ -12,6 +12,7 @@ const client_secret = require('./credentials.js').client_secret;
 const app = express();
 app.set('port', process.env.PORT || 3000);
 app.set('ip', process.env.IP || '127.0.0.1');
+const URL = process.env.URL || 'http://127.0.0.1:3000';
 
 app.use( express.static(__dirname+'/client') );
 app.enable('trust proxy');
@@ -35,6 +36,9 @@ app.get('/events', (req, res)=>{
     concert.venueName = event.venue.name;
     concert.city = event.venue.display_location;
     concert.url = event.url;
+    concert.date = event.datetime_local;
+    concert.address = event.address;
+    console.log(event.performers[0]);
     eventsData.events.push(concert);
   });
   //console.log(eventsData);
@@ -87,13 +91,12 @@ app.get('/book', (req, res)=>{
 //login
 app.get('/login', (req, res) => {
   console.log('inside /login');
-console.log('*', 'https://' + app.get('ip') + ':' + app.get('port') + '/callback');
   let scope = 'user-read-private user-read-email';
   res.redirect('https://accounts.spotify.com/authorize?' + querystring.stringify({
     response_type: 'code',
     client_id: client_id(),
     scope: scope,
-    redirect_uri: process.env.URL + '/callback'
+    redirect_uri: URL + '/callback'
     // redirect_uri: 'http://localhost:3000/callback'
   }));
 });
@@ -102,12 +105,11 @@ console.log('*', 'https://' + app.get('ip') + ':' + app.get('port') + '/callback
 app.get('/callback', (req, res) => {
   console.log('in callback');
   let code = req.query.code || null;
-  console.log('*', app.get('ip') + ':' + app.get('port') + '/callback');
   let authOptions = {
     url: 'https://accounts.spotify.com/api/token',
     form: {
       code: code,
-      redirect_uri: process.env.URL + '/callback',
+      redirect_uri: URL + '/callback',
       // redirect_uri: 'http://localhost:3000/callback',
       grant_type: 'authorization_code'
     },
