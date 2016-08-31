@@ -6,3 +6,6 @@ body {
     padding: 2em;
     margin: 2em;
 }
+.inlineMe {
+  display:inline;
+}

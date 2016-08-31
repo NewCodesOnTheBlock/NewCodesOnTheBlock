@@ -36,8 +36,9 @@ app.get('/events', (req, res)=>{
     concert.url = event.url;
     concert.date = event.datetime_local;
     concert.address = event.address;
+    concert.artists = [];
     event.performers.forEach(function(performer) {
-      concert.artist = performer.name;
+      concert.artists.push(performer.name);
     });
     eventsData.events.push(concert);
   });
