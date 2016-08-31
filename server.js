@@ -10,8 +10,8 @@ const client_id = require('./credentials.js').client_id;
 const client_secret = require('./credentials.js').client_secret;
 
 const app = express();
-const port = process.env.PORT || 3000;
-const ip = process.env.IP || '127.0.0.1';
+app.set('port', process.env.PORT || 3000);
+app.set('ip', process.env.IP || '127.0.0.1');
 
 app.use( express.static(__dirname+'/client') );
 app.enable('trust proxy');
@@ -93,7 +93,7 @@ console.log('*', 'https://' + ip + ':' + port + '/callback');
     response_type: 'code',
     client_id: client_id(),
     scope: scope,
-    redirect_uri: ip + ':' + port + '/callback'
+    redirect_uri: app.get('ip') + ':' + port + '/callback'
     //redirect_uri: 'http://localhost:3000/callback'
   }));
 });
@@ -107,7 +107,7 @@ app.get('/callback', (req, res) => {
     url: 'https://accounts.spotify.com/api/token',
     form: {
       code: code,
-      redirect_uri: ip + ':' + port + '/callback',
+      redirect_uri: app.get('ip') + ':' + port + '/callback',
       // redirect_uri: 'http://localhost:3000/callback',
       grant_type: 'authorization_code'
     },
