@@ -24,9 +24,7 @@ app.get('/events', (req, res)=>{
   let clientIp = req.clientIp;
   request('https://api.seatgeek.com/2/events?taxonomies.name=concert&geoip='+clientIp+'&range=30mi&per_page=25', function(error,response,body){
     if (error) console.error(error);
-  // console.log('thissssss',JSON.parse(response.body.events[0].title));
   let bodyData = JSON.parse(body);
-  //console.log(typeof bodyData);
   let eventsData = {};
   eventsData.meta = {};  //page name for secondary calls
   eventsData.events = [];
@@ -41,14 +39,12 @@ app.get('/events', (req, res)=>{
     console.log(event.performers[0]);
     eventsData.events.push(concert);
   });
-  //console.log(eventsData);
     res.send(JSON.stringify(eventsData));
   });
 });
 app.post('/artist', (req, res)=> {
   //get artist_name and genre from req.body
   //send API call to spotify to ask for artist/genre
-  //console.log(req);
   let artist = req.body.artist;
   let genre = 'rock';
   artist = artist.split(' ').join('+');
@@ -59,11 +55,9 @@ app.post('/artist', (req, res)=> {
     if (!error && response.statusCode === 200) {
     //if artist exist in spotify
       let bodyData = JSON.parse(body);
-      console.log(bodyData);
       if (bodyData.artists.items.length >0) {
         let id = bodyData.artists.items[0].uri;
         let link = `https://embed.spotify.com/?uri=${id}`;
-        console.log(link,"link");
         res.send(link); //send back src for front-end <iframe> tag
       } else { //if artist NOT exist in spotify
         //send http request for genre
@@ -90,27 +84,23 @@ app.get('/book', (req, res)=>{
 
 //login
 app.get('/login', (req, res) => {
-  console.log('inside /login');
   let scope = 'user-read-private user-read-email';
   res.redirect('https://accounts.spotify.com/authorize?' + querystring.stringify({
     response_type: 'code',
     client_id: client_id(),
     scope: scope,
     redirect_uri: URL + '/callback'
-    // redirect_uri: 'http://localhost:3000/callback'
   }));
 });
 
 // spotify returns to this endpoint
 app.get('/callback', (req, res) => {
-  console.log('in callback');
   let code = req.query.code || null;
   let authOptions = {
     url: 'https://accounts.spotify.com/api/token',
     form: {
       code: code,
       redirect_uri: URL + '/callback',
-      // redirect_uri: 'http://localhost:3000/callback',
       grant_type: 'authorization_code'
     },
     headers: {
@@ -131,7 +121,7 @@ app.get('/callback', (req, res) => {
         json: true
       };
       request.get(options, (error, response, body) => {
-        console.log(body);
+        // console.log('user::::::::::',body);
       });
       res.redirect('/#' + querystring.stringify({
         access_token: access_token,
@@ -147,7 +137,6 @@ app.get('/callback', (req, res) => {
 
 
 app.get('/refresh_token', (req, res) => {
-  console.log('inside refresh_token');
   let refresh_token = req.query.refresh_token;
   let authOptions = {
     url: 'https://accounts.spotify.com/api/token',
