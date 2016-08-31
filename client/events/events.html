@@ -2,10 +2,14 @@
 <h3>{{meta.geolocation.display_name}}</h3>
 <div style="display:inline-block;">
   <div ng-repeat="events in list | filter: search">
-    <a ng-href = "/#/events/{{events.title}}"  >Artist: {{events.title}}</a>
+    <div>Event: {{events.title}}</div>
     <div>Venue: {{events.venueName}}, {{events.city}}</div>
+    <div>Date: {{events.date | date: 'MM/dd/yyyy @ h:mma'}}</div>
     <div>
-      <a href="{{events.url}}" target="_blank"><span>Tickets</span></a>
+      <a href="{{events.url}}" target="_blank"><span>Tickets</span></a><br/>
+    </div>
+    <div class="inlineMe" ng-repeat="artist in events.artists">
+      <a ng-href= "/#/events/{{artist}}">{{artist}}|</a>
     </div>
   </div>
 </div>

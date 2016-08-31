@@ -36,7 +36,10 @@ app.get('/events', (req, res)=>{
     concert.url = event.url;
     concert.date = event.datetime_local;
     concert.address = event.address;
-    console.log(event.performers[0]);
+    concert.artists = [];
+    event.performers.forEach(function(performer) {
+      concert.artists.push(performer.name);
+    });
     eventsData.events.push(concert);
   });
     res.send(JSON.stringify(eventsData));
