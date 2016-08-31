@@ -14,7 +14,7 @@ app.set('trust proxy', ['loopback', 'linklocal', 'uniquelocal']);
 app.use(bodyparser.json());
 app.use(requestIp.mw());
 
-app.get('/ip', (req, res)=>{
+app.get('/events', (req, res)=>{
   let clientIp = req.clientIp;
   request('https://api.seatgeek.com/2/events?taxonomies.name=concert&geoip='+clientIp+'&range=30mi&per_page=25', function(error,response,body){
     if (error) console.error(error);
@@ -44,8 +44,8 @@ app.post('/artist', (req, res)=> {
   let genre = 'rock';
   artist = artist.split(' ').join('+');
   let input = artist;
-  let url = `https://api.spotify.com/v1/search?q=${input}&type=artist`;    
-  //send http request for artist: 
+  let url = `https://api.spotify.com/v1/search?q=${input}&type=artist`;
+  //send http request for artist:
   request(url, (error, response, body) => {
     if (!error && response.statusCode === 200) {
     //if artist exist in spotify
