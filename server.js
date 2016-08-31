@@ -93,8 +93,8 @@ console.log('*', 'https://' + app.get('ip') + ':' + app.get('port') + '/callback
     response_type: 'code',
     client_id: client_id(),
     scope: scope,
-    // redirect_uri: app.get('ip') + ':' + app.get('port') + '/callback'
-    redirect_uri: 'http://localhost:3000/callback'
+    redirect_uri: process.env.URL + '/callback'
+    // redirect_uri: 'http://localhost:3000/callback'
   }));
 });
 
@@ -107,8 +107,8 @@ app.get('/callback', (req, res) => {
     url: 'https://accounts.spotify.com/api/token',
     form: {
       code: code,
-      // redirect_uri: app.get('ip') + ':' + app.get('port') + '/callback',
-      redirect_uri: 'http://localhost:3000/callback',
+      redirect_uri: process.env.URL + '/callback',
+      // redirect_uri: 'http://localhost:3000/callback',
       grant_type: 'authorization_code'
     },
     headers: {
