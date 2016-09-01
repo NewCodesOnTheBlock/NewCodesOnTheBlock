@@ -1,6 +1,12 @@
 angular.module('events.services', [])
 
 .factory('Events', ($http) => {
+  var zipcode = 0;
+  let eventList;
+
+  const setZip = (zip) => {
+    zipcode = zip;
+  };
   const getArtist = (artist) => {
     return $http({
       method: 'POST',
@@ -18,13 +24,40 @@ angular.module('events.services', [])
     return $http({
       method: 'GET',
       url: '/events',
-      data: event
+      data: event   //remove test
+    }, function(data) {
+      setListData(data);
+      return data;
+    }, function(error) {
+      // do error
     });
   };
+  const findZip = (zip) => {
+    return $http({
+      method: 'POST',
+      url: '/zip',
+      header: {'content-type': 'application/json'},
+      data: {zip:zip}
+    });
+  }
+
+  const setListData = (data) => {
+    console.log('setListData', data);
+    eventList = data;
+  }
+
+  const getEventList = () => {
+    console.log('getEventList', eventList);
+    return eventList;
+  }
 
   return {
+    setZip:setZip,
     getArtist: getArtist,
-    findEvents: findEvents
+    findEvents: findEvents,
+    findZip: findZip,
+    setListData: setListData,
+    getEventList: getEventList
   };
 
 });
