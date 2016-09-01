@@ -24,20 +24,8 @@ angular.module('login', [])
           });
 
       } else {
-        // search IP
+        // validate the damn zip!!!
         console.log('else');
       }
-
-
-
-      // $http({
-      //   data: {zip: $scope.zipcode},
-      //   method:'POST',
-      //   url: '/zip'
-      // }).then(function (resp){
-      //   // go to event
-      //   $state.go('events');
-      //   return resp.data;
-      // });
     };
   }]);

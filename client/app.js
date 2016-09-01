@@ -30,12 +30,3 @@ angular.module('events', [
       controller: 'PlayerCtrl'
     });
 }]);
-
-// .when('/ip', {
-//   templateUrl: 'index.html',
-//   controller: 'EventsCtrl'
-// })
-// .when('/artist', {
-//   templateUrl: 'events.html',
-//   controller: 'SongCtrl'
-// })
