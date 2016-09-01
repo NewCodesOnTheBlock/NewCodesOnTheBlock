@@ -21,9 +21,8 @@ app.set('trust proxy', ['loopback', 'linklocal', 'uniquelocal']);
 app.use(bodyparser.json());
 app.use(requestIp.mw());
 
-app.get('/events', (req, res)=>{
-  let clientIp = req.clientIp;
-  request('https://api.seatgeek.com/2/events?taxonomies.name=concert&geoip='+clientIp+'&range=30mi&per_page=25', function(error,response,body){
+const requestData = function(req, res, url, ip) {
+  request(url, function(error,response,body){
     if (error) console.error(error);
   let bodyData = JSON.parse(body);
   let eventsData = {};
@@ -43,9 +42,23 @@ app.get('/events', (req, res)=>{
     });
     eventsData.events.push(concert);
   });
-    res.send(JSON.stringify(eventsData));
+    res.send(eventsData);
   });
+};
+
+app.get('/events', (req, res)=>{
+  const clientIp = req.clientIp;
+  const url = 'https://api.seatgeek.com/2/events?taxonomies.name=concert&geoip='+clientIp+'&range=30mi&per_page=25';
+  requestData(req, res, url, clientIp);
 });
+
+app.post('/zip', (req, res) => {
+  console.log(req.body);
+  // const zip =   req.body.zip
+  const url = 'https://api.seatgeek.com/2/events?taxonomies.name=concert&postal_code='+zip+'&range=30mi&per_page=25';
+  // requestData(req, res, url);
+});
+
 app.post('/artist', (req, res)=> {
   //get artist_name and genre from req.body
   //send API call to spotify to ask for artist/genre
