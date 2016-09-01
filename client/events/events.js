@@ -23,19 +23,4 @@ angular.module('events.list', [])
     Events.saveEvent(event);
   };
 
-  // $scope.getArtist = () => {
-  //   Events.getArtist(artist)
-  //  .then((data) => {
-  //  //console.log(data, 'data from events.js');
-  //  //   let myEl = angular.element( document.querySelector( '#player' ) );
-  //  //   myEl.html('<iframe src = ' + data + ' width="300" height="380" frameborder="0" allowtransparency="true"></iframe>');
-  //  console.log(data);
-  //  $scope.data = data;
-  //  })
-  //  .catch((error) => {
-  //    console.error(error);
-  //  });
-  //};
-
-
 }]);
