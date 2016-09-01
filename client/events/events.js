@@ -28,5 +28,10 @@ angular.module('events.list', [])
   //    console.error(error);
   //  });
   //};
+  $scope.getEvent = ($index) => {
+    let event = $scope.list[$index];
+    console.log(event, "event from front-end");
+    Events.saveEvent(event);
+  };
 
 }]);

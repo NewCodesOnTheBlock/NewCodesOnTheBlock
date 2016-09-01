@@ -22,9 +22,18 @@ angular.module('events.services', [])
     });
   };
 
+  const saveEvent = (event) => {
+    return $http({
+      method: 'POST',
+      url: 'favorite',
+      data: event
+    });
+  };
+
   return {
     getArtist: getArtist,
-    findEvents: findEvents
+    findEvents: findEvents,
+    saveEvent: saveEvent
   };
 
 });
