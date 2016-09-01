@@ -5,11 +5,12 @@ const querystring = require('querystring');
 const session = require('express-session');
 const requestIp = require('request-ip');
 const request = require('request');
-
+const db = require('./db.js');
 const client_id = require('./credentials.js').client_id;
 const client_secret = require('./credentials.js').client_secret;
 
 const app = express();
+db.createTables();
 app.set('port', process.env.PORT || 3000);
 app.set('ip', process.env.IP || '127.0.0.1');
 const URL = process.env.URL || 'http://127.0.0.1:3000';
@@ -124,7 +125,23 @@ app.get('/callback', (req, res) => {
         json: true
       };
       request.get(options, (error, response, body) => {
-        // console.log('user::::::::::',body);
+        console.log('user::::::::::',body);
+        let id = body.id;
+        let user_name = body.display_name;
+        db.all(`SELECT * FROM users WHERE id = $id`, (err, user) => {
+          if(err) {
+            console.error(err);
+          } else if (user.length === 0) {
+            db.run(`INSERT INTO users (id, user_name) VALUES ($id, $user_name);`, {
+              $id: id,
+              $user_name: user_name
+            }, (err) => {
+              if (err) {
+                console.log('Insert error:', err);
+              }
+            });      
+          }
+        });
       });
       res.redirect('/#' + querystring.stringify({
         access_token: access_token,
