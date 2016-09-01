@@ -11,7 +11,7 @@ const client_secret = require('./credentials.js').client_secret;
 const youtube_key = require('./credentials.js').youtube_key;
 
 const app = express();
-db.deleteEverything();
+//db.deleteEverything();
 db.createTables();
 app.set('port', process.env.PORT || 3000);
 app.set('ip', process.env.IP || '127.0.0.1');
