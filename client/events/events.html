@@ -9,10 +9,10 @@
       <a href="{{events.url}}" target="_blank"><span>Tickets</span></a><br/>
     </div>
     <div class="inlineMe" ng-repeat="artist in events.artists">
-      <a ng-href= "/#/events/{{artist}}">{{artist}}|</a>
+      <button><a ng-href= "/#/events/{{artist}}">{{artist.trim()}}</a></button>
     </div>
   </div>
 </div>
-<div ui-view class="col-sm-6" style="display:inline-block;float:right;">
+<div ui-view class="col-sm-6" style="display:inline-block;float:right;position:fixed;">
 
 </div>
