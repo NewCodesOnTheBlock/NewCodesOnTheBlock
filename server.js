@@ -8,6 +8,7 @@ const request = require('request');
 const db = require('./db.js');
 const client_id = require('./credentials.js').client_id;
 const client_secret = require('./credentials.js').client_secret;
+const youtube_key = require('./credentials.js').youtube_key;
 
 const app = express();
 db.createTables();
@@ -79,6 +80,28 @@ app.post('/artist', (req, res)=> {
     }
   });
 });
+app.post('/youtu', (req,res)=> {
+  console.log(youtube_key(), "YOUTUBE KEY");
+  let key = youtube_key();
+  let artist = req.body.artist;
+  artist = artist.split(' ').join('+');
+  let input = artist;
+  let url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q={$input}&type=playlist&key={$key}`;
+  //send http request to Youtube for artist:
+  request(url, (error, response, body) => {
+    if(!error && response.statusCode === 200) {
+      let bodyData = JSON.parse(body);
+      if(bodyData.items.length > 0) {
+        let id = bodyData.items[0].id.playlistId;
+        let link = `https://www.youtube.com/embed?listType=playlist&list={$id}`;
+        res.send(link); //send back src for front-end <iframe> tag
+      } else {
+        res.send('Sorry, we don\'t have artist videos available');
+      }
+    }
+  });
+});
+
 app.get('/book', (req, res)=>{
     //get artist/event info from req.body
     //API call to seatgeek for specific event url
