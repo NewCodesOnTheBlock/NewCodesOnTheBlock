@@ -14,4 +14,9 @@ exports.client_id = function(){
 
 exports.client_secret = function(){
   return '9f5f424ccb684362b26e215e96baf339';
-}; ;
+}; 
+
+//YOUTUBE app key
+exports.youtube_key = () => {
+  return 'AIzaSyDZLfDSpN-yehR_yTXj5Q0C41gl-B9rzC4';
+};
