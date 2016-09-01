@@ -4,9 +4,6 @@ const fs = require('fs');
 const file = './app-db';
 
 module.exports = db;
-db.deleteEverything = ()=> {
-  db.run(`DROP TABLE favorites;`);
-};
 db.createTables = ()=> {
   db.run(`
     CREATE TABLE IF NOT EXISTS users (
