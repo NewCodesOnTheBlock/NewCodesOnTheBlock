@@ -100,7 +100,6 @@ app.post('/artist', (req, res)=> {
     }
   });
 });
-
 app.post('/youtu', (req,res)=> {
   console.log(youtube_key(), "YOUTUBE KEY");
   let key = youtube_key();
@@ -122,7 +121,6 @@ app.post('/youtu', (req,res)=> {
     }
   });
 });
-
 app.post('/favorite', (req,res)=> {
   //console.log(req.cookies.cookieName, "cookie----------");
   let bodyData = req.body;
@@ -152,7 +150,6 @@ app.post('/favorite', (req,res)=> {
   res.send('success');
 
 });
-
 app.get('/book', (req, res)=>{
     //get artist/event info from req.body
     //API call to seatgeek for specific event url
