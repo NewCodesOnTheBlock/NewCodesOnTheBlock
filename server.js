@@ -53,10 +53,10 @@ app.get('/events', (req, res)=>{
 });
 
 app.post('/zip', (req, res) => {
-  console.log(req.body);
-  // const zip =   req.body.zip
+  console.log('HIIIIIIIIIII',req.body);
+  const zip =   req.body.zip;
   const url = 'https://api.seatgeek.com/2/events?taxonomies.name=concert&postal_code='+zip+'&range=30mi&per_page=25';
-  // requestData(req, res, url);
+  requestData(req, res, url);
 });
 
 app.post('/artist', (req, res)=> {
