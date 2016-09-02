@@ -11,10 +11,9 @@ angular.module('login', [])
         return resp.data;
       });
     };
-    $scope.postalSearch = function() {
 
+    $scope.postalSearch = function() {
       if ($scope.zipcode && $scope.zipcode.length > 4) {
-        // search zip
         Events.setZip($scope.zipcode);
         Events.findZip($scope.zipcode)
           .then(function(data) {
@@ -24,8 +23,7 @@ angular.module('login', [])
           });
 
       } else {
-        // validate the damn zip!!!
-        console.log('else');
+        alert("Please Enter a valid zipcode");
       }
     };
   }]);
