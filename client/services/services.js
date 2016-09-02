@@ -7,6 +7,7 @@ angular.module('events.services', [])
   const setZip = (zip) => {
     zipcode = zip;
   };
+
   const getArtist = (artist) => {
     return $http({
       method: 'POST',
@@ -23,15 +24,15 @@ angular.module('events.services', [])
   const findEvents = () => {
     return $http({
       method: 'GET',
-      url: '/events',
-      data: event   //remove test
+      url: '/events'
     }, function(data) {
       setListData(data);
       return data;
     }, function(error) {
-      // do error
+      console.error(error);
     });
   };
+
   const findZip = (zip) => {
     return $http({
       method: 'POST',
@@ -39,17 +40,17 @@ angular.module('events.services', [])
       header: {'content-type': 'application/json'},
       data: {zip:zip}
     });
-  }
+  };
 
   const setListData = (data) => {
     console.log('setListData', data);
     eventList = data;
-  }
+  };
 
   const getEventList = () => {
     console.log('getEventList', eventList);
     return eventList;
-  }
+  };
 
   return {
     setZip:setZip,
