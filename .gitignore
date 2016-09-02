@@ -21,6 +21,7 @@ coverage
 # Compiled Dirs (http://nodejs.org/api/addons.html)
 dist/
 client/lib/
+app-db
 
 # Dependency directorys
 # Deployed apps should consider commenting these lines out:
@@ -33,3 +34,4 @@ bower_components/
 .floobit
 .floo
 .flooignore
+
