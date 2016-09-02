@@ -20,7 +20,8 @@ db.createTables = ()=> {
       city VARCHAR(50),
       date VARCHAR(50),
       url VARCHAR(50),
-      artists VARCHAR(50)
+      artists VARCHAR(50),
+      UNIQUE(user_id, title, venueName, city, date, url, artists)
     );
   `);
   db.run(`
@@ -31,4 +32,6 @@ db.createTables = ()=> {
     );
   `);
 };
-
+db.deleteEverything = function (table) {
+  db.run(`DROP TABLE ${table};`);
+};

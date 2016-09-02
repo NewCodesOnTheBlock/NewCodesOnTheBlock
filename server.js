@@ -9,14 +9,14 @@ const db = require('./db.js');
 const client_id = require('./credentials.js').client_id;
 const client_secret = require('./credentials.js').client_secret;
 const youtube_key = require('./credentials.js').youtube_key;
-
+const cookieParser = require('cookie-parser');
 const app = express();
 //db.deleteEverything();
 db.createTables();
 app.set('port', process.env.PORT || 3000);
 app.set('ip', process.env.IP || '127.0.0.1');
 const URL = process.env.URL || 'http://127.0.0.1:3000';
-
+app.use(cookieParser());
 app.use( express.static(__dirname+'/client') );
 app.enable('trust proxy');
 app.set('trust proxy', ['loopback', 'linklocal', 'uniquelocal']);
@@ -122,17 +122,18 @@ app.post('/youtu', (req,res)=> {
   });
 });
 app.post('/favorite', (req,res)=> {
+  //console.log(req.cookies.cookieName, "cookie----------");
   let bodyData = req.body;
-  console.log(bodyData, "save event data from server-----------!");
+  //console.log(bodyData, "save event data from server-----------!");
   let artists = bodyData.artists.join('+');
   let title = bodyData.title;
   let url = bodyData.url;
   let date = bodyData.date;
   let city = bodyData.city;
   let venueName = bodyData.venueName;
-  let user_id = current_user;
+  let user_id = req.cookies.cookieName;
   console.log(user_id, "user_id ----------");
-  db.run(`INSERT INTO favorites (user_id, title, venueName, city, date, url, artists) 
+  db.run(`INSERT OR IGNORE INTO favorites (user_id, title, venueName, city, date, url, artists) 
           VALUES ($user_id, $title, $venueName, $city, $date, $url, $artists);`, {
               $user_id: user_id,
               $title: title,
@@ -145,7 +146,8 @@ app.post('/favorite', (req,res)=> {
               if (err) {
                 console.log('Insert event info error:', err);
               }
-        });   
+        });
+  res.send('success');  
 
 });
 app.get('/book', (req, res)=>{
@@ -154,7 +156,7 @@ app.get('/book', (req, res)=>{
     //redirect to specific url
   res.redirect('https://seatgeek.com/');//for simplicity, redirect to seatgeek for now
 });
-let current_user = null;
+//let current_user = null;
 //login
 app.get('/login', (req, res) => {
   let scope = 'user-read-private user-read-email';
@@ -209,16 +211,20 @@ app.get('/callback', (req, res) => {
                 console.log('Insert error:', err);
               }
             });
-            current_user = id;    
+            res.cookie("cookieName",id);       
+            res.redirect('/#' + querystring.stringify({
+                access_token: access_token,
+                refresh_token: refresh_token
+              }));
           } else {
-            current_user = id;
+            res.cookie("cookieName",id);
+            res.redirect('/#' + querystring.stringify({
+                access_token: access_token,
+                refresh_token: refresh_token
+              }));
           }
         });
       });
-      res.redirect('/#' + querystring.stringify({
-        access_token: access_token,
-        refresh_token: refresh_token
-      }));
     } else {
       res.redirect('/#' + querystring.stringify({
         error: 'invalid_token'

@@ -36,6 +36,7 @@
     "body-parser": "^1.15.2",
     "bookshelf": "^0.10.0",
     "bower": "^1.7.9",
+    "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "express-partial": "^0.1.0",
     "express-partials": "^0.3.0",
