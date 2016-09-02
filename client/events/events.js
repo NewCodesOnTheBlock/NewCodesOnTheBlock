@@ -22,5 +22,4 @@ angular.module('events.list', [])
     console.log(event, "event from front-end");
     Events.saveEvent(event);
   };
-
 }]);
