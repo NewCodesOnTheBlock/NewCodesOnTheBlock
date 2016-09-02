@@ -24,25 +24,32 @@ app.use(requestIp.mw());
 const requestData = function(req, res, url, ip) {
   request(url, function(error,response,body){
     if (error) console.error(error);
-  let bodyData = JSON.parse(body);
-  let eventsData = {};
-  eventsData.meta = {};  //page name for secondary calls
-  eventsData.events = [];
-  bodyData.events.forEach(function(event) {
-    let concert = {};
-    concert.title = event.title;
-    concert.venueName = event.venue.name;
-    concert.city = event.venue.display_location;
-    concert.url = event.url;
-    concert.date = event.datetime_local;
-    concert.address = event.address;
-    concert.artists = [];
-    event.performers.forEach(function(performer) {
-      concert.artists.push(performer.name);
-    });
-    eventsData.events.push(concert);
-  });
-    res.send(eventsData);
+    let bodyData = JSON.parse(body);
+    let eventsData = {};
+    eventsData.meta = {};  //page name for secondary calls
+    eventsData.events = [];
+    console.log('bodyData.status', bodyData.status);
+    if (!bodyData.status) {
+      bodyData.events.forEach(function(event) {
+        let concert = {};
+        concert.title = event.title;
+        concert.venueName = event.venue.name;
+        concert.city = event.venue.display_location;
+        concert.url = event.url;
+        concert.date = event.datetime_local;
+        concert.address = event.address;
+        concert.artists = [];
+        event.performers.forEach(function(performer) {
+          concert.artists.push(performer.name);
+        });
+        eventsData.events.push(concert);
+      });
+      res.send(eventsData);
+    } else {
+      // send error
+      // set content-type to json
+      res.status(400).send('{error: "error", "msg": "not found"}');
+    }
   });
 };
 
@@ -53,7 +60,6 @@ app.get('/events', (req, res)=>{
 });
 
 app.post('/zip', (req, res) => {
-  console.log('HIIIIIIIIIII',req.body);
   const zip =   req.body.zip;
   const url = 'https://api.seatgeek.com/2/events?taxonomies.name=concert&postal_code='+zip+'&range=30mi&per_page=25';
   requestData(req, res, url);
@@ -152,7 +158,7 @@ app.get('/callback', (req, res) => {
               if (err) {
                 console.log('Insert error:', err);
               }
-            });      
+            });
           }
         });
       });
