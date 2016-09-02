@@ -51,6 +51,13 @@ angular.module('events.services', [])
     console.log('getEventList', eventList);
     return eventList;
   };
+  const saveEvent = (event) => {
+    return $http({
+      method: 'POST',
+      url: 'favorite',
+      data: event
+    });
+  };
 
   return {
     setZip:setZip,
@@ -58,7 +65,8 @@ angular.module('events.services', [])
     findEvents: findEvents,
     findZip: findZip,
     setListData: setListData,
-    getEventList: getEventList
+    getEventList: getEventList,
+    saveEvent: saveEvent
   };
 
 });

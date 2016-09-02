@@ -8,13 +8,15 @@ const request = require('request');
 const db = require('./db.js');
 const client_id = require('./credentials.js').client_id;
 const client_secret = require('./credentials.js').client_secret;
-
+const youtube_key = require('./credentials.js').youtube_key;
+const cookieParser = require('cookie-parser');
 const app = express();
+//db.deleteEverything();
 db.createTables();
 app.set('port', process.env.PORT || 3000);
 app.set('ip', process.env.IP || '127.0.0.1');
 const URL = process.env.URL || 'http://127.0.0.1:3000';
-
+app.use(cookieParser());
 app.use( express.static(__dirname+'/client') );
 app.enable('trust proxy');
 app.set('trust proxy', ['loopback', 'linklocal', 'uniquelocal']);
@@ -98,13 +100,63 @@ app.post('/artist', (req, res)=> {
     }
   });
 });
+app.post('/youtu', (req,res)=> {
+  console.log(youtube_key(), "YOUTUBE KEY");
+  let key = youtube_key();
+  let artist = req.body.artist;
+  artist = artist.split(' ').join('+');
+  let input = artist;
+  let url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q={$input}&type=playlist&key={$key}`;
+  //send http request to Youtube for artist:
+  request(url, (error, response, body) => {
+    if(!error && response.statusCode === 200) {
+      let bodyData = JSON.parse(body);
+      if(bodyData.items.length > 0) {
+        let id = bodyData.items[0].id.playlistId;
+        let link = `https://www.youtube.com/embed?listType=playlist&list={$id}`;
+        res.send(link); //send back src for front-end <iframe> tag
+      } else {
+        res.send('Sorry, we don\'t have artist videos available');
+      }
+    }
+  });
+});
+app.post('/favorite', (req,res)=> {
+  //console.log(req.cookies.cookieName, "cookie----------");
+  let bodyData = req.body;
+  //console.log(bodyData, "save event data from server-----------!");
+  let artists = bodyData.artists.join('+');
+  let title = bodyData.title;
+  let url = bodyData.url;
+  let date = bodyData.date;
+  let city = bodyData.city;
+  let venueName = bodyData.venueName;
+  let user_id = req.cookies.cookieName;
+  console.log(user_id, "user_id ----------");
+  db.run(`INSERT OR IGNORE INTO favorites (user_id, title, venueName, city, date, url, artists) 
+          VALUES ($user_id, $title, $venueName, $city, $date, $url, $artists);`, {
+              $user_id: user_id,
+              $title: title,
+              $venueName: venueName,
+              $city: city,
+              $date: date,
+              $url: url,
+              $artists: artists
+            }, (err) => {
+              if (err) {
+                console.log('Insert event info error:', err);
+              }
+        });
+  res.send('success');  
+
+});
 app.get('/book', (req, res)=>{
     //get artist/event info from req.body
     //API call to seatgeek for specific event url
     //redirect to specific url
   res.redirect('https://seatgeek.com/');//for simplicity, redirect to seatgeek for now
 });
-
+//let current_user = null;
 //login
 app.get('/login', (req, res) => {
   let scope = 'user-read-private user-read-email';
@@ -144,13 +196,13 @@ app.get('/callback', (req, res) => {
         json: true
       };
       request.get(options, (error, response, body) => {
-        console.log('user::::::::::',body);
+       console.log('user::::::::::',body);
         let id = body.id;
         let user_name = body.display_name;
-        db.all(`SELECT * FROM users WHERE id = $id`, (err, user) => {
+        db.get(`SELECT * FROM users WHERE id = ${id}`, (err, user) => {
           if(err) {
             console.error(err);
-          } else if (user.length === 0) {
+          } else if (!user) {
             db.run(`INSERT INTO users (id, user_name) VALUES ($id, $user_name);`, {
               $id: id,
               $user_name: user_name
@@ -159,13 +211,20 @@ app.get('/callback', (req, res) => {
                 console.log('Insert error:', err);
               }
             });
+            res.cookie("cookieName",id);       
+            res.redirect('/#' + querystring.stringify({
+                access_token: access_token,
+                refresh_token: refresh_token
+              }));
+          } else {
+            res.cookie("cookieName",id);
+            res.redirect('/#' + querystring.stringify({
+                access_token: access_token,
+                refresh_token: refresh_token
+              }));
           }
         });
       });
-      res.redirect('/#' + querystring.stringify({
-        access_token: access_token,
-        refresh_token: refresh_token
-      }));
     } else {
       res.redirect('/#' + querystring.stringify({
         error: 'invalid_token'
