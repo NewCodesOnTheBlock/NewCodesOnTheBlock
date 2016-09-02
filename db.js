@@ -32,6 +32,4 @@ db.createTables = ()=> {
     );
   `);
 };
-db.deleteEverything = function (table) {
-  db.run(`DROP TABLE ${table};`);
-};
+
