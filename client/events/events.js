@@ -2,6 +2,12 @@ angular.module('events.list', [])
 
 .controller('EventsCtrl', ["$scope", "Events", function($scope, Events) {
   $scope.list = [];
+  $scope.checked = false;
+  
+  $scope.toggle = () => {
+    $scope.checked = !$scope.checked;
+  };
+
   $scope.list = Events.getEventList();
   $scope.findEvents = () => {
     Events.findEvents()

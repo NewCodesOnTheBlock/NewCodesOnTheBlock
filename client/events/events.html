@@ -1,36 +1,33 @@
 <form>
   <div class="form-group">
-   <div class="col-sm-6">
-     <div class="input-group">
-       <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
-       <input type="text" class="form-control" ng-model="search" placeholder="Find Your Event">
-     </div>
-   </div>
- </div>
+    <div class="col-sm-6">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
+        <input type="text" class="form-control" ng-model="search" placeholder="Find Your Event">
+      </div>
+    </div>
+  </div>
 </form>
-
 <h3>{{meta.geolocation.display_name}}</h3>
-
-<div class='container center'>
+<div class="container center">
   <div ng-repeat="events in list | filter: search">
-    <div class="col-xs-3 card" >
+    <div class="col-xs-3 card">
       <div class="card-container">
         <span style="float:right" class="glyphicon glyphicon-heart-empty favorite"></span>
         <div>Event: {{events.title}}</div>
         <div>Venue: {{events.venueName}}, {{events.city}}</div>
-        <div>Date: {{events.date | date: 'MM/dd/yyyy @ h:mma'}}</div>
+        <div>Date: {{events.date | date: "MM/dd/yyyy @ h:mma"}}</div>
         <div>
-          <a href="{{events.url}}" target="_blank"><span>Tickets</span></a><br/>
+          <a href="{{events.url}}" target="_blank"><span>Tickets</span></a>
+          <br/>
         </div>
         <div class="inlineMe" ng-repeat="artist in events.artists">
-          <a ng-href= "/#/events/{{artist}}">{{artist}}|</a>
+          <button><a ng-href="/#/events/{{artist}}" ng-click="toggle()">{{artist.trim()}}</a></button>
         </div>
+        <span style="float:right" class="glyphicon glyphicon-heart-empty favorite" ng-click="getEvent($index)"></span>
       </div>
     </div>
-    <span style="float:right" class="glyphicon glyphicon-heart-empty favorite" ng-click='getEvent($index)'></span>
   </div>
 </div>
-
 <div ui-view>
-
 </div>
