@@ -5,24 +5,41 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap-theme.css">
-    <link href='http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css' rel='stylesheet' type='text/css'>
+  <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" text="text/css" href="styles.css">
   <title>EventSpot</title>
 </head>
 
 <body>
-  <h1>EventSpot</h1>
-  <div ui-view>
+  <input type="checkbox" id="sidebarToggle" name="" value=""/>
+  <div class="page-wrap">
+    <label for="sidebarToggle" class="toggle">☰ <span>Open/Close</span></label>
+
+    <!--Place all webpage content into .page-content class-->
+    <div class="page-content">
+      <h1>EventSpot</h1>
+      <div ui-view>
+      </div>
+      <script src="lib/angular/angular.js"></script>
+      <script src="lib/angular-touch/angular-touch.js"></script>
+      <script src="lib/angular-animate/angular-animate.js"></script>
+      <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
+      <script src="events/events.js"></script>
+      <script src="events/events.player.js"></script>
+      <script src="auth/login.js"></script>
+      <script src="services/services.js"></script>
+      <script src="app.js"></script>
+    </div>
+    <!--end page-content-->
+
+    <!--Put .sidebar at bottom of webpage content, before </body>-->
+
+    <div class="sidebar">
+    </div>
+    <!--end sidebar-->
+
   </div>
-  <script src="lib/angular/angular.js"></script>
-  <script src="lib/angular-touch/angular-touch.js"></script>
-  <script src="lib/angular-animate/angular-animate.js"></script>
-  <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
-  <script src="events/events.js"></script>
-  <script src="events/events.player.js"></script>
-  <script src="auth/login.js"></script>
-  <script src="services/services.js"></script>
-  <script src="app.js"></script>
+  <!--end page-wrap-->
 </body>
 
 </html>

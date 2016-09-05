@@ -1,6 +1,7 @@
 body {
     font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
     font-weight: normal;
+    -webkit-font-smoothing: antialiased;
     background-color: #C9C9C9;
     /*background-color: black;*/
     color: #000000;
@@ -32,7 +33,7 @@ h1 {
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   /*overflow: visible;*/
-  height: auto;*/
+  height: auto;
 }
 
 .card-container {
@@ -48,4 +49,68 @@ h1 {
 .center {
   display: inline-block;
   margin: 0 auto;
+}
+
+/*--------------SLIDER----------------*/
+
+.page-content {
+  position: relative;
+  z-index: 1;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+}
+
+.toggle {
+  text-decoration: none;
+  font-size: 25px;
+  color: black;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+  cursor: pointer;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.toggle span {
+  font-size: 10px;
+}
+
+.sidebar {
+  overflow-x: hidden;
+  position: fixed;
+  top: 0;
+  right: -400px;
+  bottom: 0;
+  float:right;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  width: 400px;
+  z-index: 0;
+}
+
+#sidebarToggle {
+  display: none;
+  left: 10px;
+}
+
+#sidebarToggle:checked + .page-wrap .sidebar {
+  right: 0;
+}
+
+#sidebarToggle:checked + .page-wrap .toggle {
+  right: 420px;
+}
+
+#sidebarToggle:checked + .page-wrap .page-content {
+  padding-right: 420px;
 }
