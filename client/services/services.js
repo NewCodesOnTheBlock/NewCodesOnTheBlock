@@ -4,6 +4,11 @@ angular.module('events.services', [])
   var zipcode = 0;
   let eventList;
 
+  const toggle = () => {
+    document.getElementById("sidebarToggle").checked =
+      !(document.getElementById("sidebarToggle").checked);
+  };
+
   const setZip = (zip) => {
     zipcode = zip;
   };
@@ -66,7 +71,8 @@ angular.module('events.services', [])
     findZip: findZip,
     setListData: setListData,
     getEventList: getEventList,
-    saveEvent: saveEvent
+    saveEvent: saveEvent,
+    toggle: toggle
   };
 
 });

@@ -3,7 +3,6 @@ angular.module('events', [
   'events.list',
   'events.player',
   'login',
-  'pageslide-directive',
   'ui.router' //ngroute no longer needed. ui.router will handle all states and routes
 ])
 

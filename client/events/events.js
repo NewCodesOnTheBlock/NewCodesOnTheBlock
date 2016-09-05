@@ -3,9 +3,13 @@ angular.module('events.list', [])
 .controller('EventsCtrl', ["$scope", "Events", function($scope, Events) {
   $scope.list = [];
   $scope.checked = false;
-  
+
   $scope.toggle = () => {
     $scope.checked = !$scope.checked;
+  };
+
+  $scope.toggleCheck = () => {
+    Events.toggle();
   };
 
   $scope.list = Events.getEventList();
