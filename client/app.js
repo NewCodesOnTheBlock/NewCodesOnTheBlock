@@ -25,8 +25,9 @@ angular.module('events', [
     // This is a child state to the "events" state.
     // Still needs work but ideally we can have this show the player without altering our main url.
     .state('events.play', {
-      url:'/:play',
+      url:'/play/:play',
       templateUrl: 'events/events.player.html',
       controller: 'PlayerCtrl'
     });
+
 }]);

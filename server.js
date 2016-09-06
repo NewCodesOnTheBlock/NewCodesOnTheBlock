@@ -150,11 +150,15 @@ app.post('/favorite', (req,res)=> {
   res.send('success');
 
 });
-app.get('/book', (req, res)=>{
-    //get artist/event info from req.body
-    //API call to seatgeek for specific event url
-    //redirect to specific url
-  res.redirect('https://seatgeek.com/');//for simplicity, redirect to seatgeek for now
+app.post('/map', (req, res)=>{
+  console.log(req.body);
+  let venue = req.body.venue;
+  let city = req.body.city;
+  let input = venue + "," + city;
+  let url = `https://www.google.com/maps?q=[${input}]&output=embed`;
+  console.log(url,"url-------------");
+  res.send(url);
+
 });
 //let current_user = null;
 //login
