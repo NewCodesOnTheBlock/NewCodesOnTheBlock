@@ -11,7 +11,8 @@ const client_secret = require('./credentials.js').client_secret;
 const youtube_key = require('./credentials.js').youtube_key;
 const cookieParser = require('cookie-parser');
 const app = express();
-//db.deleteEverything();
+
+
 db.createTables();
 app.set('port', process.env.PORT || 3000);
 app.set('ip', process.env.IP || '127.0.0.1');
@@ -56,9 +57,11 @@ const requestData = function(req, res, url, ip) {
 };
 
 app.get('/events', (req, res)=>{
+  console.log('cookie: ', req.cookies);
   const clientIp = req.clientIp;
   const url = 'https://api.seatgeek.com/2/events?taxonomies.name=concert&geoip='+clientIp+'&range=30mi&per_page=25';
   requestData(req, res, url, clientIp);
+
 });
 
 app.post('/zip', (req, res) => {
@@ -124,7 +127,7 @@ app.post('/youtu', (req,res)=> {
 app.post('/favorite', (req,res)=> {
   //console.log(req.cookies.cookieName, "cookie----------");
   let bodyData = req.body;
-  //console.log(bodyData, "save event data from server-----------!");
+  // console.log(bodyData, "save event data from server-----------!");
   let artists = bodyData.artists.join('+');
   let title = bodyData.title;
   let url = bodyData.url;
@@ -156,7 +159,7 @@ app.get('/book', (req, res)=>{
     //redirect to specific url
   res.redirect('https://seatgeek.com/');//for simplicity, redirect to seatgeek for now
 });
-//let current_user = null;
+
 //login
 app.get('/login', (req, res) => {
   let scope = 'user-read-private user-read-email';
@@ -199,6 +202,8 @@ app.get('/callback', (req, res) => {
        console.log('user::::::::::',body);
         let id = body.id;
         let user_name = body.display_name;
+        // let user_img = bodyData.images[0].url;
+
         db.get(`SELECT * FROM users WHERE id = ${id}`, (err, user) => {
           if(err) {
             console.error(err);
@@ -211,13 +216,13 @@ app.get('/callback', (req, res) => {
                 console.log('Insert error:', err);
               }
             });
-            res.cookie("cookieName",id);
+            res.cookie("cookieName", id);
             res.redirect('/#' + querystring.stringify({
                 access_token: access_token,
                 refresh_token: refresh_token
               }));
           } else {
-            res.cookie("cookieName",id);
+            res.cookie("cookieName", id);
             res.redirect('/#' + querystring.stringify({
                 access_token: access_token,
                 refresh_token: refresh_token
