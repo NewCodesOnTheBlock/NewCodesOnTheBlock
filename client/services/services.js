@@ -36,7 +36,7 @@ angular.module('events.services', [])
     })
     .then((resp) => {
       return resp.data;
-    }); 
+    });
   };
 
   const findEvents = () => {
@@ -61,12 +61,10 @@ angular.module('events.services', [])
   };
 
   const setListData = (data) => {
-    console.log('setListData', data);
     eventList = data;
   };
 
   const getEventList = () => {
-    console.log('getEventList', eventList);
     return eventList;
   };
   const saveEvent = (event) => {

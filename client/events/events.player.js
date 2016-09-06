@@ -5,8 +5,6 @@ angular.module('events.player', [])
   let artist = input[0];
   let venue = input[1];
   let city = input[2];
-  console.log(artist,"-----", venue, "------", city);
-  //console.log(artist,"artist-------------");
   Events.getArtist(artist)
   .then((data) => {
     $scope.player = $sce.trustAsResourceUrl(data);

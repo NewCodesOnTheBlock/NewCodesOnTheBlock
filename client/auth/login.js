@@ -3,7 +3,6 @@ angular.module('login', [])
 .controller('LoginCtrl', ["$scope", "Events", "$http", "$state",
   function ($scope, Events, $http, $state) {
     $scope.signIn = function(){
-      console.log('inside signIn');
       $http({
         method: 'GET',
         url: '/login'
@@ -17,7 +16,6 @@ angular.module('login', [])
         Events.setZip($scope.zipcode);
         Events.findZip($scope.zipcode)
           .then(function(data) {
-            console.log('data: ', data);
             Events.setListData(data.data.events);
             $state.go('events');
           });
