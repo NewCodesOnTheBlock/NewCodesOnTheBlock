@@ -26,6 +26,19 @@ angular.module('events.services', [])
     });
   };
 
+  const getMap = (venue, city) => {
+    return $http({
+      method: 'POST',
+      url: '/map',
+      json: true,
+      header: {'content-type': 'application/json'},
+      data: JSON.stringify({venue: venue, city: city})
+    })
+    .then((resp) => {
+      return resp.data;
+    }); 
+  };
+
   const findEvents = () => {
     return $http({
       method: 'GET',
@@ -72,7 +85,8 @@ angular.module('events.services', [])
     setListData: setListData,
     getEventList: getEventList,
     saveEvent: saveEvent,
-    toggle: toggle
+    toggle: toggle,
+    getMap: getMap
   };
 
 });
