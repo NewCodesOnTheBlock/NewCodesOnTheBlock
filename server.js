@@ -57,14 +57,14 @@ const requestData = function(req, res, url, ip) {
 
 app.get('/events', (req, res)=>{
   const clientIp = req.clientIp;
-  const url = 'https://api.seatgeek.com/2/events?taxonomies.name=concert&geoip='+clientIp+'&range=30mi&per_page=25';
+  const url = 'https://api.seatgeek.com/2/events?taxonomies.name=concert&geoip='+clientIp+'&range=30mi&per_page=201';
   requestData(req, res, url, clientIp);
 
 });
 
 app.post('/zip', (req, res) => {
   const zip =   req.body.zip;
-  const url = 'https://api.seatgeek.com/2/events?taxonomies.name=concert&postal_code='+zip+'&range=30mi&per_page=25';
+  const url = 'https://api.seatgeek.com/2/events?taxonomies.name=concert&postal_code='+zip+'&range=30mi&per_page=201';
   requestData(req, res, url);
 });
 
