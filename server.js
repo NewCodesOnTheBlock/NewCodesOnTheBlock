@@ -31,7 +31,6 @@ const requestData = function(req, res, url, ip) {
     let eventsData = {};
     eventsData.meta = {};  //page name for secondary calls
     eventsData.events = [];
-    console.log('bodyData.status', bodyData.status);
     if (!bodyData.status) {
       bodyData.events.forEach(function(event) {
         let concert = {};
@@ -57,7 +56,6 @@ const requestData = function(req, res, url, ip) {
 };
 
 app.get('/events', (req, res)=>{
-  console.log('cookie: ', req.cookies);
   const clientIp = req.clientIp;
   const url = 'https://api.seatgeek.com/2/events?taxonomies.name=concert&geoip='+clientIp+'&range=30mi&per_page=25';
   requestData(req, res, url, clientIp);
@@ -104,7 +102,6 @@ app.post('/artist', (req, res)=> {
   });
 });
 app.post('/youtu', (req,res)=> {
-  console.log(youtube_key(), "YOUTUBE KEY");
   let key = youtube_key();
   let artist = req.body.artist;
   artist = artist.split(' ').join('+');
@@ -125,9 +122,7 @@ app.post('/youtu', (req,res)=> {
   });
 });
 app.post('/favorite', (req,res)=> {
-  //console.log(req.cookies.cookieName, "cookie----------");
   let bodyData = req.body;
-  // console.log(bodyData, "save event data from server-----------!");
   let artists = bodyData.artists.join('+');
   let title = bodyData.title;
   let url = bodyData.url;
@@ -135,7 +130,6 @@ app.post('/favorite', (req,res)=> {
   let city = bodyData.city;
   let venueName = bodyData.venueName;
   let user_id = req.cookies.cookieName;
-  console.log(user_id, "user_id ----------");
   db.run(`INSERT OR IGNORE INTO favorites (user_id, title, venueName, city, date, url, artists)
           VALUES ($user_id, $title, $venueName, $city, $date, $url, $artists);`, {
               $user_id: user_id,
@@ -154,12 +148,10 @@ app.post('/favorite', (req,res)=> {
 
 });
 app.post('/map', (req, res)=>{
-  console.log(req.body);
   let venue = req.body.venue;
   let city = req.body.city;
   let input = venue + "," + city;
   let url = `https://www.google.com/maps?q=[${input}]&output=embed`;
-  console.log(url,"url-------------");
   res.send(url);
 
 });
@@ -203,7 +195,6 @@ app.get('/callback', (req, res) => {
         json: true
       };
       request.get(options, (error, response, body) => {
-       console.log('user::::::::::',body);
         let id = body.id;
         let user_name = body.display_name;
         // let user_img = bodyData.images[0].url;
