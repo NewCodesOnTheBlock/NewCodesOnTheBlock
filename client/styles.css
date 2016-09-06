@@ -18,6 +18,18 @@ h1 {
   margin-left: 1.5em;
 }
 
+/*--------------- Current User ----------------*/
+#login {
+  float:right;
+  top: 25px;
+  right: 120px;
+  position: fixed;
+}
+
+.hide {
+  display: none;
+}
+
 form {
   display: inline-block;
 }
@@ -26,9 +38,11 @@ form {
   margin-left: 6em;
 }
 
-.glyphicon:hover {
+/*.glyphicon:hover {
   cursor: pointer;
-}
+}*/
+
+/*------------ Cards --------------*/
 
 .pad {
   padding: .5em;
@@ -122,4 +136,45 @@ form {
 
 #sidebarToggle:checked + .page-wrap .page-content {
   padding-right: 420px;
+}
+
+/*--------------- Log In --------------------*/
+.auth-container{
+  margin: 0;
+}
+
+.auth {
+  padding: 15em;
+}
+
+.auth input {
+  border-radius: .25em;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.auth input::-webkit-input-placeholder {
+   color: red;
+   font-weight: bold;
+   font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+   font-size: 16px;
+}
+
+button {
+  border-radius: .25em;
+  height: 40px;
+  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+  font-size: 16px;
+}
+
+video {
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: -1;
 }
