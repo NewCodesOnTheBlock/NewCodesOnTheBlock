@@ -1,12 +1,10 @@
 body {
-    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    /*font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;*/
     font-weight: normal;
     -webkit-font-smoothing: antialiased;
     background-color: #C9C9C9;
-    /*background-color: black;*/
     color: #000000;
     padding: 2em;
-    margin: 2em;
 }
 
 .inlineMe {
@@ -15,40 +13,51 @@ body {
 
 h1 {
   font-family: 'Monofett', cursive;
-  font-size: 48px;
+  font-size: 60px;
   color: #e60000;
-  /*color: #1ED760;*/
+  margin-left: 1.5em;
+}
+
+form {
+  display: inline-block;
+}
+
+.input-group {
+  margin-left: 6em;
+}
+
+.glyphicon:hover {
+  cursor: pointer;
+}
+
+.pad {
+  padding: .5em;
 }
 
 .card {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
-  background-color: white;
-  border-radius: 5px;
-  height: 170px;
+  border-radius: .25em;
+  height: 12.5em;
   margin: 1em;
-  /*overflow: hidden;*/
+  font-family: "Avenir";
+  background-color: white;
+  padding: .5em;
 }
 
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-  /*overflow: visible;*/
   height: auto;
 }
 
 .card-container {
-  height: 150px;
+  height: 10.5em;
   overflow: hidden;
   padding: 2em;
 }
 
 .card-container:hover {
   height: auto;
-}
-
-.center {
-  display: inline-block;
-  margin: 0 auto;
 }
 
 /*--------------SLIDER----------------*/
