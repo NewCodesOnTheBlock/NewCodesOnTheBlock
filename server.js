@@ -133,7 +133,7 @@ app.post('/favorite', (req,res)=> {
   let venueName = bodyData.venueName;
   let user_id = req.cookies.cookieName;
   console.log(user_id, "user_id ----------");
-  db.run(`INSERT OR IGNORE INTO favorites (user_id, title, venueName, city, date, url, artists) 
+  db.run(`INSERT OR IGNORE INTO favorites (user_id, title, venueName, city, date, url, artists)
           VALUES ($user_id, $title, $venueName, $city, $date, $url, $artists);`, {
               $user_id: user_id,
               $title: title,
@@ -147,7 +147,7 @@ app.post('/favorite', (req,res)=> {
                 console.log('Insert event info error:', err);
               }
         });
-  res.send('success');  
+  res.send('success');
 
 });
 app.get('/book', (req, res)=>{
@@ -211,7 +211,7 @@ app.get('/callback', (req, res) => {
                 console.log('Insert error:', err);
               }
             });
-            res.cookie("cookieName",id);       
+            res.cookie("cookieName",id);
             res.redirect('/#' + querystring.stringify({
                 access_token: access_token,
                 refresh_token: refresh_token

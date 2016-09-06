@@ -32,4 +32,3 @@ db.createTables = ()=> {
     );
   `);
 };
-
