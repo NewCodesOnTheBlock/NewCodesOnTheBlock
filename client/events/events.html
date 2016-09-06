@@ -18,19 +18,20 @@
         <div class="card-container">
             <span style="float:right" class="glyphicon glyphicon-heart-empty favorite" ng-click="getEvent($index)"></span>
           <div style="font-weight:bold;">Event: {{events.title}}</div>
-          <div>Venue: {{events.venueName}}, {{events.city}}</div>
+          <div> Venue: {{events.venueName}}, {{events.city}}</div>
           <div>Date: {{events.date | date: 'MM/dd/yyyy @ h:mma'}}</div>
           <div>
             <a href="{{events.url}}" target="_blank"><span>Tickets</span></a><br/>
           </div>
           <div class="inlineMe" ng-repeat="artist in events.artists">
             <button ng-click="toggleCheck()">
-              <a ng-href="/#/events/{{artist}}">{{artist.trim()}}</a>
+              <a ng-href="/#/events/play/{{artist}}+{{$parent.events.venueName}}+{{$parent.events.city}}">{{artist.trim()}}</a>
             </button>
           </div>
         </div>
       </div>
   </div>
+</div>
 </div>
 <div ui-view>
 </div>
