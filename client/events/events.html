@@ -28,9 +28,7 @@
             <br/>
           </div>
           <div class="inlineMe" ng-repeat="artist in events.artists">
-            <button ng-click="toggleCheck(artist)">
-              <a ng-href="/#/events/play/{{artist}}+{{$parent.events.venueName}}+{{$parent.events.city}}">{{artist.trim()}}</a>
-            </button>
+              <a ng-href="/#/events/play/{{artist}}+{{$parent.events.venueName}}+{{$parent.events.city}}"><button ng-click="toggleCheck(artist)">{{artist.trim()}}</button></a>
           </div>
         </div>
       </div>
