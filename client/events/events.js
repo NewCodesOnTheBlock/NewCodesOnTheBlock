@@ -2,7 +2,7 @@ angular.module('events.list', [])
 
 .controller('EventsCtrl', ["$scope", "Events", function($scope, Events) {
   $scope.list = [];
-  
+  $scope.child = {};
   $scope.cleared = () => {
     Events.clearEvents();
   };
@@ -13,8 +13,16 @@ angular.module('events.list', [])
     $scope.checked = !$scope.checked;
   };
 
-  $scope.toggleCheck = () => {
-    Events.toggle();
+  $scope.toggleCheck = (curr) => {
+    if(document.getElementById("sidebarToggle").checked===false){
+      Events.toggleOn();
+    } else if (document.getElementById("sidebarToggle").checked===true) {
+      console.log("GetArtist:", curr);
+      console.log("CLICKED", $scope.child.input.split('+')[0]);
+      if(curr === $scope.child.input.split('+')[0]){
+        Events.toggleOff();
+      }
+    }
   };
 
   $scope.list = Events.getEventList();
