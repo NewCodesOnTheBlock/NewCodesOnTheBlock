@@ -2,7 +2,11 @@ angular.module('events.list', [])
 
 .controller('EventsCtrl', ["$scope", "Events", function($scope, Events) {
   $scope.list = [];
-  $scope.cleared = () => Events.clearEvents();
+  
+  $scope.cleared = () => {
+    Events.clearEvents();
+  };
+
   $scope.checked = false;
 
   $scope.toggle = () => {
