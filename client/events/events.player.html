@@ -1,6 +1,10 @@
-<div class="sidebar" style="height:100%; background-color:black;">
+<div class="sidebar" style="height:100%; background-color:black;" ng-if="check==='Y'">
   <iframe ng-src="{{player}}" width="400" height="60%" frameborder="0" allowtransparency="true"></iframe>
   <iframe ng-src="{{map}}" width="400" height="40%" frameborder="0" allowtfullscreen></iframe>
 </div>
 
-
+<div class="sidebar" style="height:100%; background-color:black;" ng-if="check==='N'">
+  <h4 style="color:white">Sorry, this artist is not available on Spotify. Enjoy this playlist we prepared for you!</h4>
+  <iframe ng-src="{{player}}" width="400" height="60%" frameborder="0" allowtransparency="true"></iframe>
+  <iframe ng-src="{{map}}" width="400" height="40%" frameborder="0" allowtfullscreen></iframe>
+</div>
