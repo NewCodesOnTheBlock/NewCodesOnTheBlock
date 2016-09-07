@@ -7,7 +7,14 @@ angular.module('events.player', [])
   let city = input[2];
   Events.getArtist(artist)
   .then((data) => {
-    $scope.player = $sce.trustAsResourceUrl(data);
+    let lastChar = data[data.length - 1];
+    $scope.check = lastChar === 'R' ? 'N' : 'Y';
+    if($scope.check === 'Y'){
+      $scope.player = $sce.trustAsResourceUrl(data);
+    } else {
+      let link = data.slice(0, data.length - 1);
+      $scope.player = $sce.trustAsResourceUrl(link);
+    }
   })
   .catch((error) =>{
     console.log(error);
@@ -19,5 +26,4 @@ angular.module('events.player', [])
   .catch((error) =>{
     console.log(error);
   });
-
 }]);
