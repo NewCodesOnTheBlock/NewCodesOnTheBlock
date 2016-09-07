@@ -5,9 +5,16 @@
   </video>
 
   <div class="auth">
-    <input class="col-sm-8" ng-model="zipcode" type="text" maxlength="5" placeholder="Search by Zipcode">
-    <button type="submit" ng-click="postalSearch()">Search By Zip</button>
-
-    <a ui-sref="events"><button ng-click="cleared()">Find Events Near Me</button></a>
+    <div class="col-sm-12 searchBorder">
+      <input ng-model="zipcode" type="text" maxlength="5" placeholder="Search by Zipcode">
+      <button type="submit" ng-click="postalSearch()">Search</button>
+    </div>
+    <div class="col-sm-4"> </div>
+    <div class="col-sm-4 byMeBtn">
+      <a ui-sref="events">
+        <button ng-click="cleared()">Find Events Near Me</button>
+      </a>
+    </div>
+    <div class="col-sm-4"> </div>
   </div>
 </div>

@@ -179,7 +179,7 @@ app.get('/login', (req, res) => {
     response_type: 'code',
     client_id: client_id(),
     scope: scope,
-    redirect_uri: URL + '/callback'
+    redirect_uri: URL + '/#/events'
   }));
 });
 
@@ -190,7 +190,7 @@ app.get('/callback', (req, res) => {
     url: 'https://accounts.spotify.com/api/token',
     form: {
       code: code,
-      redirect_uri: URL + '/callback',
+      redirect_uri: URL + '/#/events',
       grant_type: 'authorization_code'
     },
     headers: {

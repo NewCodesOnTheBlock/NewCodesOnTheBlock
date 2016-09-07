@@ -160,31 +160,61 @@ form {
 /*--------------- Log In --------------------*/
 .auth-container{
   margin: 0;
+  padding: 0;
 }
 
 .auth {
-  margin: 0 auto;
-  padding: 15em;
+  padding: 6em;
+  margin: 6em;
+}
+
+.auth .searchBorder {
+  width:75%;
+  margin-left: 12.5%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: .25em;
+}
+
+.searchBorder button {
+  float:right;
+  margin-right: 3%;
+  margin-top: 1%;
 }
 
 .auth input {
   border-radius: .25em;
-  height: 40px;
-  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  width: 75%;
+  height: 3em;
+  z-index: 1;
+  background: none;
 }
 
 .auth input::-webkit-input-placeholder {
-   color: red;
+   color: #000000;
    font-weight: bold;
    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
-   font-size: 16px;
+   font-size: 18px;
+}
+
+.auth a {
+  color: inherit;
+  border-radius: .25em;
+  height: 30px;
+  font-size: 16px;
+  margin-left: 17%;
+}
+
+.byMeBtn {
+  margin: 3em auto 3em auto;
 }
 
 .auth button {
   border-radius: .25em;
-  height: 40px;
+  height: 30px;
   font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
   font-size: 16px;
+  z-index: 1;
 }
 
 video {
