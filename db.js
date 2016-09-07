@@ -8,7 +8,8 @@ db.createTables = ()=> {
   db.run(`
     CREATE TABLE IF NOT EXISTS users (
       id  VARCHAR(50),
-      user_name VARCHAR(50)
+      user_name VARCHAR(50),
+      user_img VARCHAR(225)
     );
   `);
   db.run(`

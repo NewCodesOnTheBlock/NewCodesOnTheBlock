@@ -46,7 +46,21 @@ const requestData = function(req, res, url, ip) {
         });
         eventsData.events.push(concert);
       });
-      res.send(eventsData);
+
+      // if req.cookies.cookieName, query information and send it back with eventData
+      console.log('cookie', req.cookies.cookieName);
+      if (req.cookies.cookieName){
+        db.get(`SELECT * FROM users WHERE id = ${req.cookies.cookieName}`, (err, user) => {
+          if (err){
+            console.error(err);
+          } else {
+            console.log('user:', user);
+            res.send({'eventsData': eventsData, 'user': user});
+          }
+        });
+      } else {
+        res.send({'eventsData': eventsData});
+      }
     } else {
       // send error
       // set content-type to json
@@ -161,17 +175,20 @@ app.post('/map', (req, res)=>{
 
 //login
 app.get('/login', (req, res) => {
+  console.log('login');
   let scope = 'user-read-private user-read-email';
   res.redirect('https://accounts.spotify.com/authorize?' + querystring.stringify({
     response_type: 'code',
     client_id: client_id(),
     scope: scope,
-    redirect_uri: URL + '/callback'
+    redirect_uri: URL + '/callback',
+    show_dialog: true
   }));
 });
 
 // spotify returns to this endpoint
 app.get('/callback', (req, res) => {
+  console.log('callback');
   let code = req.query.code || null;
   let authOptions = {
     url: 'https://accounts.spotify.com/api/token',
@@ -198,33 +215,36 @@ app.get('/callback', (req, res) => {
         json: true
       };
       request.get(options, (error, response, body) => {
+        console.log('here', body);
         let id = body.id;
         let user_name = body.display_name;
-        // let user_img = bodyData.images[0].url;
+        let user_img = body.images[0].url;
 
         db.get(`SELECT * FROM users WHERE id = ${id}`, (err, user) => {
           if(err) {
             console.error(err);
           } else if (!user) {
-            db.run(`INSERT INTO users (id, user_name) VALUES ($id, $user_name);`, {
+            db.run(`INSERT INTO users (id, user_name, user_img) VALUES ($id, $user_name, $user_img);`, {
               $id: id,
-              $user_name: user_name
+              $user_name: user_name,
+              $user_img: user_img
             }, (err) => {
               if (err) {
                 console.log('Insert error:', err);
               }
             });
             res.cookie("cookieName", id);
-            res.redirect('/#' + querystring.stringify({
+            res.redirect('/#/events' + querystring.stringify({
                 access_token: access_token,
                 refresh_token: refresh_token
-              }));
+            }));
           } else {
             res.cookie("cookieName", id);
-            res.redirect('/#' + querystring.stringify({
-                access_token: access_token,
-                refresh_token: refresh_token
-              }));
+            // res.redirect('/#' + querystring.stringify({
+            //     access_token: access_token,
+            //     refresh_token: refresh_token,
+            // }));
+            res.redirect('/#/events');
           }
         });
       });
@@ -238,6 +258,7 @@ app.get('/callback', (req, res) => {
 
 
 app.get('/refresh_token', (req, res) => {
+  console.log('refreshing!');
   let refresh_token = req.query.refresh_token;
   let authOptions = {
     url: 'https://accounts.spotify.com/api/token',
