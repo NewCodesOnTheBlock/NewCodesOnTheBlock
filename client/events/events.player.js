@@ -8,8 +8,9 @@ angular.module('events.player', [])
   Events.getArtist(artist)
   .then((data) => {
     let lastChar = data[data.length - 1];
-    $scope.check = lastChar === 'R' ? 'N' : 'Y';
+    $scope.check = lastChar === '*' ? 'N' : 'Y';
     if($scope.check === 'Y'){
+      console.log(data,"data in front-end------------")
       $scope.player = $sce.trustAsResourceUrl(data);
     } else {
       let link = data.slice(0, data.length - 1);
