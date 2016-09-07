@@ -2,6 +2,7 @@ angular.module('login', [])
 
 .controller('LoginCtrl', ["$scope", "Events", "$http", "$state",
   function ($scope, Events, $http, $state) {
+    $scope.cleared = function() {Events.clearEvents();};
     $scope.signIn = function(){
       $http({
         method: 'GET',
