@@ -3,6 +3,7 @@ angular.module('events.services', [])
 .factory('Events', ($http) => {
   var zipcode = 0;
   let eventList;
+  let user = null;
 
   const clearEvents = () => {
     eventList = undefined;
@@ -14,6 +15,37 @@ angular.module('events.services', [])
 
   const toggleOff = () => {
     document.getElementById("sidebarToggle").checked = false;
+  };
+
+  const showUser = ()=>{
+    let el = document.getElementById("login");
+    if (user !== null && user !== undefined){
+      let userDisplay = document.createTextNode("Logged in as " + user.user_name + " ");
+      let profile = document.createElement("H5");
+      let image = document.createElement("img");
+      image.src = user.user_img;
+      profile.appendChild(userDisplay);
+      profile.appendChild(image);
+      // el.replaceChild(profile, el.childNodes[1]);
+      el.appendChild(profile);
+    } else {
+      let ref = document.createElement("a");
+      console.log(ref);
+      ref.href = "/login";
+      let button = document.createElement("button");
+      var buttonText = document.createTextNode("Sign In with Spotify");
+      button.appendChild(buttonText);
+      ref.appendChild(button);
+      el.appendChild(ref);
+    }
+  };
+
+  const setUser = (data) => {
+    user = data;
+  };
+
+  const getUser = () =>{
+    return user;
   };
 
   const setZip = (zip) => {
@@ -51,7 +83,8 @@ angular.module('events.services', [])
       method: 'GET',
       url: '/events'
     }, function(data) {
-      setListData(data);
+      setListData(data.data.eventsData);
+      setUser(data.data.user);
       return data;
     }, function(error) {
       console.error(error);
@@ -93,7 +126,10 @@ angular.module('events.services', [])
     saveEvent: saveEvent,
     toggleOn: toggleOn,
     toggleOff: toggleOff,
-    getMap: getMap
+    getMap: getMap,
+    setUser: setUser,
+    showUser: showUser,
+    getUser: getUser
   };
 
 });

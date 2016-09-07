@@ -46,7 +46,20 @@ const requestData = function(req, res, url, ip) {
         });
         eventsData.events.push(concert);
       });
-      res.send(eventsData);
+
+      // if req.cookies.cookieName, query information and send it back with eventData
+      console.log('cookie', req.cookies.cookieName);
+      if (req.cookies.cookieName){
+        db.get(`SELECT * FROM users WHERE id = ${req.cookies.cookieName}`, (err, user) => {
+          if (err){
+            console.error(err);
+          } else {
+            res.send({'eventsData': eventsData, 'user': user});
+          }
+        });
+      } else {
+        res.send({'eventsData': eventsData});
+      }
     } else {
       // send error
       // set content-type to json
@@ -200,15 +213,16 @@ app.get('/callback', (req, res) => {
       request.get(options, (error, response, body) => {
         let id = body.id;
         let user_name = body.display_name;
-        // let user_img = bodyData.images[0].url;
+        let user_img = body.images[0].url;
 
         db.get(`SELECT * FROM users WHERE id = ${id}`, (err, user) => {
           if(err) {
             console.error(err);
           } else if (!user) {
-            db.run(`INSERT INTO users (id, user_name) VALUES ($id, $user_name);`, {
+            db.run(`INSERT INTO users (id, user_name, user_img) VALUES ($id, $user_name, $user_img);`, {
               $id: id,
-              $user_name: user_name
+              $user_name: user_name,
+              $user_img: user_img
             }, (err) => {
               if (err) {
                 console.log('Insert error:', err);
@@ -218,13 +232,13 @@ app.get('/callback', (req, res) => {
             res.redirect('/#' + querystring.stringify({
                 access_token: access_token,
                 refresh_token: refresh_token
-              }));
+            }));
           } else {
             res.cookie("cookieName", id);
             res.redirect('/#' + querystring.stringify({
                 access_token: access_token,
-                refresh_token: refresh_token
-              }));
+                refresh_token: refresh_token,
+            }));
           }
         });
       });

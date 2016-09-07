@@ -3,6 +3,7 @@ angular.module('events.list', [])
 .controller('EventsCtrl', ["$scope", "Events", function($scope, Events) {
   $scope.list = [];
   $scope.child = {};
+  $scope.user = null;
   $scope.cleared = () => {
     Events.clearEvents();
   };
@@ -30,7 +31,11 @@ angular.module('events.list', [])
   $scope.findEvents = () => {
     Events.findEvents()
       .then((concert) => {
-        $scope.list = concert.data.events;
+        $scope.list = concert.data.eventsData.events;
+        Events.setListData(concert.data.eventsData.events);
+        $scope.user = concert.data.user;
+        Events.setUser(concert.data.user);
+        Events.showUser();
       })
       .catch((error) => {
         console.error(error);
