@@ -8,9 +8,12 @@ angular.module('events.services', [])
     eventList = undefined;
   };
 
-  const toggle = () => {
-    document.getElementById("sidebarToggle").checked =
-      !(document.getElementById("sidebarToggle").checked);
+  const toggleOn = () => {
+    document.getElementById("sidebarToggle").checked = true;
+  };
+
+  const toggleOff = () => {
+    document.getElementById("sidebarToggle").checked = false;
   };
 
   const setZip = (zip) => {
@@ -88,7 +91,8 @@ angular.module('events.services', [])
     setListData: setListData,
     getEventList: getEventList,
     saveEvent: saveEvent,
-    toggle: toggle,
+    toggleOn: toggleOn,
+    toggleOff: toggleOff,
     getMap: getMap
   };
 
