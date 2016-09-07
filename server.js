@@ -54,6 +54,7 @@ const requestData = function(req, res, url, ip) {
           if (err){
             console.error(err);
           } else {
+            console.log('user:', user);
             res.send({'eventsData': eventsData, 'user': user});
           }
         });
@@ -174,23 +175,26 @@ app.post('/map', (req, res)=>{
 
 //login
 app.get('/login', (req, res) => {
+  console.log('login');
   let scope = 'user-read-private user-read-email';
   res.redirect('https://accounts.spotify.com/authorize?' + querystring.stringify({
     response_type: 'code',
     client_id: client_id(),
     scope: scope,
-    redirect_uri: URL + '/#/events'
+    redirect_uri: URL + '/callback',
+    show_dialog: true
   }));
 });
 
 // spotify returns to this endpoint
 app.get('/callback', (req, res) => {
+  console.log('callback');
   let code = req.query.code || null;
   let authOptions = {
     url: 'https://accounts.spotify.com/api/token',
     form: {
       code: code,
-      redirect_uri: URL + '/#/events',
+      redirect_uri: URL + '/callback',
       grant_type: 'authorization_code'
     },
     headers: {
@@ -211,6 +215,7 @@ app.get('/callback', (req, res) => {
         json: true
       };
       request.get(options, (error, response, body) => {
+        console.log('here', body);
         let id = body.id;
         let user_name = body.display_name;
         let user_img = body.images[0].url;
@@ -229,16 +234,17 @@ app.get('/callback', (req, res) => {
               }
             });
             res.cookie("cookieName", id);
-            res.redirect('/#' + querystring.stringify({
+            res.redirect('/#/events' + querystring.stringify({
                 access_token: access_token,
                 refresh_token: refresh_token
             }));
           } else {
             res.cookie("cookieName", id);
-            res.redirect('/#' + querystring.stringify({
-                access_token: access_token,
-                refresh_token: refresh_token,
-            }));
+            // res.redirect('/#' + querystring.stringify({
+            //     access_token: access_token,
+            //     refresh_token: refresh_token,
+            // }));
+            res.redirect('/#/events');
           }
         });
       });
@@ -252,6 +258,7 @@ app.get('/callback', (req, res) => {
 
 
 app.get('/refresh_token', (req, res) => {
+  console.log('refreshing!');
   let refresh_token = req.query.refresh_token;
   let authOptions = {
     url: 'https://accounts.spotify.com/api/token',
