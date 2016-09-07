@@ -234,10 +234,11 @@ app.get('/callback', (req, res) => {
               }
             });
             res.cookie("cookieName", id);
-            res.redirect('/#/events' + querystring.stringify({
-                access_token: access_token,
-                refresh_token: refresh_token
-            }));
+            // res.redirect('/#/events' + querystring.stringify({
+            //     access_token: access_token,
+            //     refresh_token: refresh_token
+            // }));
+            res.redirect('/#/events');
           } else {
             res.cookie("cookieName", id);
             // res.redirect('/#' + querystring.stringify({
