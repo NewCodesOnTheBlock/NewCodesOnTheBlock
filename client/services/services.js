@@ -4,6 +4,10 @@ angular.module('events.services', [])
   var zipcode = 0;
   let eventList;
 
+  const clearEvents = () => {
+    eventList = undefined;
+  };
+
   const toggle = () => {
     document.getElementById("sidebarToggle").checked =
       !(document.getElementById("sidebarToggle").checked);
@@ -76,6 +80,7 @@ angular.module('events.services', [])
   };
 
   return {
+    clearEvents:clearEvents,
     setZip:setZip,
     getArtist: getArtist,
     findEvents: findEvents,
