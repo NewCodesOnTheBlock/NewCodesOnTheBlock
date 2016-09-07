@@ -18,12 +18,27 @@ h1 {
   margin-left: 1.5em;
 }
 
+h5{
+  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+}
+
+img {
+  border-radius: 50%;
+  height: 75px;
+  width: 75px;
+}
+
 /*--------------- Current User ----------------*/
 #login {
   float:right;
   top: 25px;
   right: 120px;
   position: fixed;
+  z-index: 2;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
 }
 
 .hide {
@@ -138,12 +153,17 @@ form {
   padding-right: 420px;
 }
 
+#sidebarToggle:checked + .page-wrap #login {
+ right: 520px;
+}
+
 /*--------------- Log In --------------------*/
 .auth-container{
   margin: 0;
 }
 
 .auth {
+  margin: 0 auto;
   padding: 15em;
 }
 
@@ -160,7 +180,7 @@ form {
    font-size: 16px;
 }
 
-button {
+.auth button {
   border-radius: .25em;
   height: 40px;
   font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
