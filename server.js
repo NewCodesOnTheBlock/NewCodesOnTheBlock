@@ -83,19 +83,21 @@ app.post('/artist', (req, res)=> {
       let bodyData = JSON.parse(body);
       if (bodyData.artists.items.length >0) {
         let id = bodyData.artists.items[0].uri;
+        console.log(id, "id-----------");
         let link = `https://embed.spotify.com/?uri=${id}`;
         res.send(link); //send back src for front-end <iframe> tag
       } else { //if artist NOT exist in spotify
         //send http request for genre
         let index = Math.floor(Math.random() * genre.length);
         input = genre[index];
+        console.log(input,"genre---------");
         url = `https://api.spotify.com/v1/search?q=${input}&type=playlist`;
         request(url, (error, response, body) => {
           if (!error && response.statusCode === 200) {
             let bodyData = JSON.parse(body);
             let id = bodyData.playlists.items[0].uri;
             let link = `https://embed.spotify.com/?uri=${id}`;
-            res.send(link+"R"); //send back src for front-end <iframe> tag
+            res.send(link+"*"); //send back src for front-end <iframe> tag
           }
         });
       }
