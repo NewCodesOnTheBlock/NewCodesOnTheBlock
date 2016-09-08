@@ -22,8 +22,9 @@ angular.module('login', [])
         Events.findZip($scope.zipcode)
           .then(function(data) {
             Events.setListData(data.data.eventsData.events);
-            console.log("DAADDDAA",data.data.eventsData.events);
-            $state.go('events');
+            $state.go('events').then(function(){
+              Events.showUser();
+            });
           });
 
       } else {

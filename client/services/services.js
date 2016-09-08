@@ -34,14 +34,14 @@ angular.module('events.services', [])
       let ref = document.createElement("a");
       console.log(ref);
       ref.href = "/login";
-      let button = document.createElement("button");
+      // let button = document.createElement("button");
       let image = document.createElement("IMG");
       image.setAttribute("src", "assets/spotify_login.png");
       image.setAttribute("class", "spotifyIcon");
       // var buttonText = document.createTextNode("Sign In with Spotify");
       // button.appendChild(buttonText);
-      button.appendChild(image);
-      ref.appendChild(button);
+      // button.appendChild(image);
+      ref.appendChild(image);
       el.appendChild(ref);
     }
   };
@@ -113,6 +113,7 @@ angular.module('events.services', [])
   const getEventList = () => {
     return eventList;
   };
+
   const saveEvent = (event) => {
     return $http({
       method: 'POST',
