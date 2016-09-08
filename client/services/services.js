@@ -35,8 +35,12 @@ angular.module('events.services', [])
       console.log(ref);
       ref.href = "/login";
       let button = document.createElement("button");
-      var buttonText = document.createTextNode("Sign In with Spotify");
-      button.appendChild(buttonText);
+      let image = document.createElement("IMG");
+      image.setAttribute("src", "assets/spotify_login.png");
+      image.setAttribute("class", "spotifyIcon");
+      // var buttonText = document.createTextNode("Sign In with Spotify");
+      // button.appendChild(buttonText);
+      button.appendChild(image);
       ref.appendChild(button);
       el.appendChild(ref);
     }
@@ -85,7 +89,7 @@ angular.module('events.services', [])
       method: 'GET',
       url: '/events'
     }, function(data) {
-      setListData(data.data.eventsData);
+      setListData(data.data.eventsData.events);
       setUser(data.data.user);
       return data;
     }, function(error) {
