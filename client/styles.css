@@ -49,7 +49,18 @@ h2 {
   font-size: 60px;
   color: #e60000;
   margin-left: 1.5em;
+  text-decoration: none;
 }
+
+/*h2{
+  text-decoration: none;
+  color: #e60000;
+}
+
+h2 a:hover{
+  text-decoration: none;
+  color: #e60000;
+}*/
 
 h3 {
   font-family:'Comfortaa', cursive;
@@ -307,4 +318,10 @@ video {
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
   z-index: -1;
+}
+a{
+  text-decoration: none;
+}
+a:hover, a:visited, a:link, a:active{
+  text-decoration: none;
 }
