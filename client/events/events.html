@@ -1,3 +1,4 @@
+<img src="assets/background2.jpg" class="backgroundImg">
 <div id="login">
   <!-- <a href="/login"><button>Sign In with Spotify</button></a> -->
 </div>
@@ -18,24 +19,25 @@
   <div ng-repeat="events in list | filter: search">
     <div class="col-md-4 pad">
       <div class="card clearfix">
-        <div class="card-container">
-          <span style="float:right" class="glyphicon glyphicon-heart-empty favorite" ng-click="getEvent($index)"></span>
-          <div style="font-weight:bold;">Event: {{events.title}}</div>
-          <div> Venue: {{events.venueName}}, {{events.city}}</div>
-          <div>Date: {{events.date | date: "MM/dd/yyyy @ h:mma"}}</div>
+
+        <div class="card-container" id="anchor">
+          <!-- <span style="float:right" class="glyphicon glyphicon-heart-empty favorite" ng-click="getEvent($index)"></span> -->
+          <div style="font-size:18px;font-weight:bold;">{{events.title}}</div>
+          <br>
+          <div>{{events.venueName}}, {{events.city}}</div>
           <div>
-            <a href="{{events.url}}" target="_blank"><span>Tickets</span></a>
-            <br/>
+            {{events.date | date: "MM/dd/yyyy @ h:mma"}} &nbsp <a href="{{events.url}}" target="_blank"><span style="font-size:15px;color:red;font-weight:bold;">Tickets</span></a>
           </div>
+          <br>
           <div class="inlineMe" ng-repeat="artist in events.artists">
-            <button ng-click="toggleCheck(artist)">
-              <a ng-href="/#/events/play/{{artist}}+{{$parent.events.venueName}}+{{$parent.events.city}}">{{artist.trim()}}</a>
-            </button>
+            <a ng-href="/#/events/play/{{artist}}+{{$parent.events.venueName}}+{{$parent.events.city}}">
+              <button ng-click="toggleCheck(artist)">{{artist.trim()}}</button>
+            </a>
           </div>
         </div>
+        <p class="message" style="font-size:12px;">Click artist for <img class="spotify" src="assets/spotify.png"> player and venue map.</p>
       </div>
     </div>
   </div>
-</div>
-<div ui-view>
-</div>
+  <div ui-view>
+  </div>

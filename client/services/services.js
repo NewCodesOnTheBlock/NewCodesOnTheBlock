@@ -20,11 +20,13 @@ angular.module('events.services', [])
   const showUser = ()=>{
     let el = document.getElementById("login");
     if (user !== null && user !== undefined){
-      let userDisplay = document.createTextNode("Logged in as " + user.user_name + " ");
+      let userDisplay = document.createTextNode(user.user_name);
+      let space = document.createTextNode("\u00A0 \u00A0");
       let profile = document.createElement("H5");
       let image = document.createElement("img");
       image.src = user.user_img;
       profile.appendChild(userDisplay);
+      profile.appendChild(space);
       profile.appendChild(image);
       // el.replaceChild(profile, el.childNodes[1]);
       el.appendChild(profile);
@@ -33,8 +35,12 @@ angular.module('events.services', [])
       console.log(ref);
       ref.href = "/login";
       let button = document.createElement("button");
-      var buttonText = document.createTextNode("Sign In with Spotify");
-      button.appendChild(buttonText);
+      let image = document.createElement("IMG");
+      image.setAttribute("src", "assets/spotify_login.png");
+      image.setAttribute("class", "spotifyIcon");
+      // var buttonText = document.createTextNode("Sign In with Spotify");
+      // button.appendChild(buttonText);
+      button.appendChild(image);
       ref.appendChild(button);
       el.appendChild(ref);
     }
@@ -83,7 +89,7 @@ angular.module('events.services', [])
       method: 'GET',
       url: '/events'
     }, function(data) {
-      setListData(data.data.eventsData);
+      setListData(data.data.eventsData.events);
       setUser(data.data.user);
       return data;
     }, function(error) {

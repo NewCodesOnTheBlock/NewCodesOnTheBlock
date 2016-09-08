@@ -1,3 +1,7 @@
+html {
+  padding: 0;
+  margin: 0;
+}
 body {
     /*font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;*/
     font-weight: normal;
@@ -11,34 +15,108 @@ body {
   display:inline;
 }
 
-h1 {
+.inlineMe button {
+  background-color: rgba(230, 0, 0, 0.4);;
+  color: #FFFFFF;
+  border:none;
+  box-shadow: none;
+  border-radius: .25em;
+  margin:1px;
+  height: auto;
+  font-family: 'Comfortaa', cursive;
+  font-size: 14px;
+  z-index: 1;
+}
+
+.message{
+  display:none;
+  color: #FFFFFF;
+  /*opacity: 0.5;*/
+  background-color: rgba(77,77,77,0);
+  position:absolute;;
+  bottom:20px;
+  width: 100%;
+  height: auto;
+}
+
+#anchor:hover + .message{
+  display:block !important;
+  z-index:10;
+}
+
+h2 {
   font-family: 'Monofett', cursive;
   font-size: 60px;
   color: #e60000;
   margin-left: 1.5em;
+  text-decoration: none;
+}
+
+/*h2{
+  text-decoration: none;
+  color: #e60000;
+}
+
+h2 a:hover{
+  text-decoration: none;
+  color: #e60000;
+}*/
+
+h3 {
+  font-family:'Comfortaa', cursive;
+  color: #FFFFFF;
+  text-align: center;
+  margin-bottom: 50px;
+  font-size: 65px;
+}
+
+h4{
+  font-family:'Comfortaa', cursive;
+  padding: .5em;
 }
 
 h5{
-  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+  font-family: 'Comfortaa', cursive;
 }
 
 img {
   border-radius: 50%;
-  height: 75px;
-  width: 75px;
+  height: 60px;
+  width: 60px;
+}
+.backgroundImg{
+  position: fixed;
+  z-index: -1;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  border-radius: 0;
+  height: auto;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }
 
+.spotifyIcon {
+  border-radius: 0;
+  height: auto;
+  width: auto;
+}
 /*--------------- Current User ----------------*/
 #login {
   float:right;
-  top: 25px;
-  right: 120px;
-  position: fixed;
+  top: 15px;
+  right: 100px;
+  position: absolute;
   z-index: 2;
   -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -ms-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
+}
+
+#login button {
+  height: 30px;
 }
 
 .hide {
@@ -67,28 +145,34 @@ form {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
   border-radius: .25em;
-  height: 12.5em;
+  height: 18.5em;
+  width: 24em;
   margin: 1em;
-  font-family: "Avenir";
-  background-color: white;
+  font-family: 'Comfortaa', cursive;
+  color: #FFFFFF;
+  background-color: rgba(77,77,77,0.85);
   padding: .5em;
 }
 
 .card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-  height: auto;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
 }
 
 .card-container {
-  height: 10.5em;
+  height: auto;
   overflow: hidden;
-  padding: 2em;
+  padding: 1em;
+
 }
 
 .card-container:hover {
   height: auto;
 }
 
+.spotify {
+  height: 5%;
+  width: 5%;
+}
 /*--------------SLIDER----------------*/
 
 .page-content {
@@ -193,7 +277,7 @@ form {
 .auth input::-webkit-input-placeholder {
    color: #000000;
    font-weight: bold;
-   font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+   font-family: 'Comfortaa', cursive;
    font-size: 18px;
 }
 
@@ -203,16 +287,23 @@ form {
   height: 30px;
   font-size: 16px;
   margin-left: 17%;
+  background-color: #e60000;
+  box-shadow: none;
 }
+
 
 .byMeBtn {
   margin: 3em auto 3em auto;
 }
 
 .auth button {
+  background-color: #e60000;
+  color: #FFFFFF;
+  border:none;
+  box-shadow: none;
   border-radius: .25em;
   height: 30px;
-  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+  font-family: 'Comfortaa', cursive;
   font-size: 16px;
   z-index: 1;
 }
@@ -227,4 +318,10 @@ video {
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
   z-index: -1;
+}
+a{
+  text-decoration: none;
+}
+a:hover, a:visited, a:link, a:active{
+  text-decoration: none;
 }
