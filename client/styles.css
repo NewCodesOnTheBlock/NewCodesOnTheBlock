@@ -10,6 +10,27 @@ body {
 .inlineMe {
   display:inline;
 }
+.inlineMe button {
+  height: auto;
+  width: auto;
+  background-color:transparent;
+  border-radius: 5px;
+  text-align: left;
+  font-size: 12px;
+}
+.message{
+  display:none;
+  color:#000;
+  background:white;
+  position:absolute;;
+  bottom:20px;
+  width: 20em;
+  height: auto;
+}
+#anchor:hover + .message{
+  display:block !important;
+  z-index:10;
+}
 
 h1 {
   font-family: 'Monofett', cursive;
@@ -97,7 +118,7 @@ form {
 }
 
 .card-container {
-  height: auto-container;
+  height: auto;
   overflow: hidden;
   padding: 1em;
 
@@ -107,6 +128,11 @@ form {
   height: auto;
 }
 
+.spotify {
+  height: 8%;
+  width: 8%;
+  color: red;
+}
 /*--------------SLIDER----------------*/
 
 .page-content {
