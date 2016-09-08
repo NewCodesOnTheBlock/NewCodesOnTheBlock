@@ -17,10 +17,12 @@ angular.module('login', [])
 
     $scope.postalSearch = function() {
       if ($scope.zipcode && $scope.zipcode.length > 4) {
+        console.log("inside zippp");
         Events.setZip($scope.zipcode);
         Events.findZip($scope.zipcode)
           .then(function(data) {
-            Events.setListData(data.data.events);
+            Events.setListData(data.data.eventsData.events);
+            console.log("DAADDDAA",data.data.eventsData.events);
             $state.go('events');
           });
 

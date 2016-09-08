@@ -73,18 +73,24 @@ img {
   height: 60px;
   width: 60px;
 }
-.backgroundImg {
+.backgroundImg{
   position: fixed;
   z-index: -1;
   min-width: 100%;
   min-height: 100%;
   width: auto;
+  border-radius: 0;
   height: auto;
   left: 50%;
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
 }
 
+.spotifyIcon {
+  border-radius: 0;
+  height: auto;
+  width: auto;
+}
 /*--------------- Current User ----------------*/
 #login {
   float:right;
