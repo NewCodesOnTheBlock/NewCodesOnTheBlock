@@ -1,3 +1,7 @@
+html {
+  padding: 0;
+  margin: 0;
+}
 body {
     /*font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;*/
     font-weight: normal;
@@ -10,29 +14,37 @@ body {
 .inlineMe {
   display:inline;
 }
+
 .inlineMe button {
+  background-color: rgba(230, 0, 0, 0.4);;
+  color: #FFFFFF;
+  border:none;
+  box-shadow: none;
+  border-radius: .25em;
+  margin:1px;
   height: auto;
-  width: auto;
-  background-color:transparent;
-  border-radius: 5px;
-  text-align: left;
-  font-size: 12px;
+  font-family: 'Comfortaa', cursive;
+  font-size: 14px;
+  z-index: 1;
 }
+
 .message{
   display:none;
-  color:#000;
-  background:white;
+  color: #FFFFFF;
+  /*opacity: 0.5;*/
+  background-color: rgba(77,77,77,0);
   position:absolute;;
   bottom:20px;
-  width: 20em;
+  width: 100%;
   height: auto;
 }
+
 #anchor:hover + .message{
   display:block !important;
   z-index:10;
 }
 
-h1 {
+h2 {
   font-family: 'Monofett', cursive;
   font-size: 60px;
   color: #e60000;
@@ -41,7 +53,7 @@ h1 {
 
 h3 {
   font-family:'Comfortaa', cursive;
-  color: white;
+  color: #FFFFFF;
   text-align: center;
   margin-bottom: 50px;
   font-size: 65px;
@@ -58,8 +70,19 @@ h5{
 
 img {
   border-radius: 50%;
-  height: 75px;
-  width: 75px;
+  height: 60px;
+  width: 60px;
+}
+.backgroundImg {
+  position: fixed;
+  z-index: -1;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }
 
 /*--------------- Current User ----------------*/
@@ -105,11 +128,12 @@ form {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
   border-radius: .25em;
-  height: 15em;
+  height: 18.5em;
   width: 24em;
   margin: 1em;
-  font-family: "Avenir";
-  background-color: white;
+  font-family: 'Comfortaa', cursive;
+  color: #FFFFFF;
+  background-color: rgba(77,77,77,0.85);
   padding: .5em;
 }
 
@@ -129,9 +153,8 @@ form {
 }
 
 .spotify {
-  height: 8%;
-  width: 8%;
-  color: red;
+  height: 5%;
+  width: 5%;
 }
 /*--------------SLIDER----------------*/
 
@@ -247,13 +270,20 @@ form {
   height: 30px;
   font-size: 16px;
   margin-left: 17%;
+  background-color: #e60000;
+  box-shadow: none;
 }
+
 
 .byMeBtn {
   margin: 3em auto 3em auto;
 }
 
 .auth button {
+  background-color: #e60000;
+  color: #FFFFFF;
+  border:none;
+  box-shadow: none;
   border-radius: .25em;
   height: 30px;
   font-family: 'Comfortaa', cursive;

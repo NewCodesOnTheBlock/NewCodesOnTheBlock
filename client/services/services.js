@@ -20,11 +20,13 @@ angular.module('events.services', [])
   const showUser = ()=>{
     let el = document.getElementById("login");
     if (user !== null && user !== undefined){
-      let userDisplay = document.createTextNode("Logged in as " + user.user_name + " ");
+      let userDisplay = document.createTextNode(user.user_name);
+      let space = document.createTextNode("\u00A0 \u00A0");
       let profile = document.createElement("H5");
       let image = document.createElement("img");
       image.src = user.user_img;
       profile.appendChild(userDisplay);
+      profile.appendChild(space);
       profile.appendChild(image);
       // el.replaceChild(profile, el.childNodes[1]);
       el.appendChild(profile);
