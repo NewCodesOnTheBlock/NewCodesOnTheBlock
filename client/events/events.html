@@ -18,8 +18,10 @@
   <div ng-repeat="events in list | filter: search">
     <div class="col-md-4 pad">
       <div class="card clearfix">
-        <div class="card-container">
+
+        <div class="card-container" id="anchor">
           <span style="float:right" class="glyphicon glyphicon-heart-empty favorite" ng-click="getEvent($index)"></span>
+
           <div style="font-weight:bold;">Event: {{events.title}}</div>
           <div> Venue: {{events.venueName}}, {{events.city}}</div>
           <div>Date: {{events.date | date: "MM/dd/yyyy @ h:mma"}}</div>
@@ -27,11 +29,12 @@
             <a href="{{events.url}}" target="_blank"><span>Tickets</span></a>
             <br/>
           </div>
+
           <div class="inlineMe" ng-repeat="artist in events.artists">
               <a ng-href="/#/events/play/{{artist}}+{{$parent.events.venueName}}+{{$parent.events.city}}"><button ng-click="toggleCheck(artist)">{{artist.trim()}}</button></a>
-          </div>
         </div>
       </div>
+        <p class="message">Click artist for <img class="spotify" src="assets/spotify.png"> player and venue map.</p>
     </div>
   </div>
 </div>
