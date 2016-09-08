@@ -26,8 +26,12 @@ angular.module('events.list', [])
     }
   };
 
-  $scope.list = Events.getEventList();
+  $scope.showUser = () => {
+    Events.showUser();
+  };
 
+
+  $scope.list = Events.getEventList();
   $scope.findEvents = () => {
     Events.findEvents()
       .then((concert) => {
@@ -35,7 +39,7 @@ angular.module('events.list', [])
         Events.setListData(concert.data.eventsData.events);
         $scope.user = concert.data.user;
         Events.setUser(concert.data.user);
-        Events.showUser();
+        $scope.showUser();
       })
       .catch((error) => {
         console.error(error);
