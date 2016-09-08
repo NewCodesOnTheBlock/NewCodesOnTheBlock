@@ -37,6 +37,7 @@ body {
   bottom:20px;
   width: 100%;
   height: auto;
+  z-index: -1;
 }
 
 #anchor:hover + .message{
@@ -221,7 +222,7 @@ form {
   -ms-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
   width: 400px;
-  z-index: 0;
+  z-index: 10;
 }
 
 #sidebarToggle {
