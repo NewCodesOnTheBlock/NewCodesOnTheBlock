@@ -9,8 +9,8 @@
 ###Search near you or specify a zip code.  Checkout an event, click an artist and watch their Spotify playlist + venue location slide in. Enjoy the sound?  Attend the event!
 
 ##EventSpot Team
-* Product Manager: Spencer
-* Scrum Master: Chris
+* Product Manager/Developer: Spencer
+* Scrum Master/Developer: Chris
 * Developer: Benjamin
 * Developer: Cadence
 * Developer: Phoebe
