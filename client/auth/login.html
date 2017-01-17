@@ -6,10 +6,10 @@
 
   <div class="auth">
     <h3><strong>Amplify your night out.</strong></h3>
-    <div class="col-sm-12 searchBorder">
+    <form ng-submit="postalSearch()" class="col-sm-12 searchBorder">
       <input ng-model="zipcode" type="text" maxlength="5" placeholder="Search by Zipcode">
       <button type="submit" ng-click="postalSearch()">Search</button>
-    </div>
+    </form>
     <div class="col-sm-4"> </div>
     <div class="col-sm-4 byMeBtn">
       <a ui-sref="events">
