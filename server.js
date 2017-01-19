@@ -28,6 +28,8 @@ app.use(requestIp.mw());
 
 const requestData = function(req, res, url, ip) {
   request(url, function(error,response,body){
+    console.log('BODY', body);
+    console.log('URL', url);
     if (error) console.error(error);
     let bodyData = JSON.parse(body);
     let eventsData = {};

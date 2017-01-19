@@ -7,6 +7,15 @@
 //   return '60dbdd9b26b7486c9b1684be858c296c';
 // };
 
+// SeatGeek Credentials
+exports.seatgeekId = function(){
+  return 'NjY0MDQyMHwxNDg0Njc3OTIz';
+};
+
+exports.seatgeekSecret = function(){
+  return 'WXjkjZSmYRDOVn-sz7lV6tcpvNBbf4giPlvM7_dO';
+};
+
 // VenueCloud Credentials
 
 exports.seatgeekId = function(){
