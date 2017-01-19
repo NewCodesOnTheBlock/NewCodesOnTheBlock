@@ -28,8 +28,6 @@ app.use(requestIp.mw());
 
 const requestData = function(req, res, url, ip) {
   request(url, function(error,response,body){
-    console.log('BODY', body);
-    console.log('URL', url);
     if (error) console.error(error);
     let bodyData = JSON.parse(body);
     let eventsData = {};
@@ -77,7 +75,6 @@ app.get('/events', (req, res)=>{
   const clientIp = req.clientIp;
   const url = 'https://api.seatgeek.com/2/events?taxonomies.name=concert&geoip='+clientIp+'&range=30mi&per_page=201&client_id='+seatgeekId+'&client_secret='+seatgeekSecret;
   requestData(req, res, url, clientIp);
-
 });
 
 app.post('/zip', (req, res) => {
