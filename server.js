@@ -8,6 +8,8 @@ const request = require('request');
 const db = require('./db.js');
 const client_id = require('./credentials.js').client_id;
 const client_secret = require('./credentials.js').client_secret;
+const seatgeekId = require('./credentials.js').seatgeekId();
+const seatgeekSecret = require('./credentials.js').seatgeekSecret();
 const youtube_key = require('./credentials.js').youtube_key;
 const cookieParser = require('cookie-parser');
 const app = express();
@@ -26,6 +28,8 @@ app.use(requestIp.mw());
 
 const requestData = function(req, res, url, ip) {
   request(url, function(error,response,body){
+    console.log('BODY', body);
+    console.log('URL', url);
     if (error) console.error(error);
     let bodyData = JSON.parse(body);
     let eventsData = {};
@@ -71,14 +75,14 @@ const requestData = function(req, res, url, ip) {
 
 app.get('/events', (req, res)=>{
   const clientIp = req.clientIp;
-  const url = 'https://api.seatgeek.com/2/events?taxonomies.name=concert&geoip='+clientIp+'&range=30mi&per_page=201';
+  const url = 'https://api.seatgeek.com/2/events?taxonomies.name=concert&geoip='+clientIp+'&range=30mi&per_page=201&client_id='+seatgeekId+'&client_secret='+seatgeekSecret;
   requestData(req, res, url, clientIp);
 
 });
 
 app.post('/zip', (req, res) => {
   const zip =   req.body.zip;
-  const url = 'https://api.seatgeek.com/2/events?taxonomies.name=concert&postal_code='+zip+'&range=30mi&per_page=201';
+  const url = 'https://api.seatgeek.com/2/events?taxonomies.name=concert&postal_code='+zip+'&range=30mi&per_page=201&client_id='+seatgeekId+'&client_secret='+seatgeekSecret;
   requestData(req, res, url);
 });
 
