@@ -17,6 +17,15 @@ exports.seatgeekSecret = function(){
 };
 
 // VenueCloud Credentials
+
+exports.seatgeekId = function(){
+  return 'NjY0MDQyMHwxNDg0Njc3OTIz';
+};
+
+exports.seatgeekSecret = function(){
+  return 'WXjkjZSmYRDOVn-sz7lV6tcpvNBbf4giPlvM7_dO';
+};
+
 exports.client_id = function(){
   return 'e138fc1da9f34ab0b9055cb5765188e9';
 };
