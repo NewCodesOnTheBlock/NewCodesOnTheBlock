@@ -6,10 +6,11 @@ angular.module('events', [
   'ui.router' //ngroute no longer needed. ui.router will handle all states and routes
 ])
 
-.config(['$urlRouterProvider', '$stateProvider', ($urlRouterProvider, $stateProvider) => {
+.config(['$urlRouterProvider', '$stateProvider', '$locationProvider', ($urlRouterProvider, $stateProvider, $locationProvider) => {
   //In ui.router, $stateProvider is similart to ngroute $routeProvider but can also render additional nested views.
   $urlRouterProvider.otherwise('/');
-
+  $locationProvider.html5Mode(false);
+  $locationProvider.hashPrefix('');
   // States allow us to show specific views within the same html page.
   $stateProvider
     .state('login', {
@@ -23,7 +24,6 @@ angular.module('events', [
       controller: 'EventsCtrl'
     })
     // This is a child state to the "events" state.
-    // Still needs work but ideally we can have this show the player without altering our main url.
     .state('events.play', {
       url:'/play/:play',
       templateUrl: 'events/events.player.html',
