@@ -28,7 +28,7 @@ app.use(requestIp.mw());
 
 const requestData = function(req, res, url, ip) {
   request(url, function(error,response,body){
-    console.log('BODY', body);
+    // console.log('BODY', body);
     console.log('URL', url);
     if (error) console.error(error);
     let bodyData = JSON.parse(body);
@@ -119,6 +119,7 @@ app.post('/artist', (req, res)=> {
     }
   });
 });
+
 app.post('/youtu', (req,res)=> {
   let key = youtube_key();
   let artist = req.body.artist;
@@ -139,6 +140,7 @@ app.post('/youtu', (req,res)=> {
     }
   });
 });
+
 app.post('/favorite', (req,res)=> {
   let bodyData = req.body;
   let artists = bodyData.artists.join('+');
@@ -216,7 +218,7 @@ app.get('/callback', (req, res) => {
         json: true
       };
       request.get(options, (error, response, body) => {
-        console.log('here', body);
+        // console.log('here', body);
         let id = body.id;
         let user_name = body.display_name;
         let user_img = body.images[0].url;
