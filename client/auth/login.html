@@ -7,7 +7,7 @@
   <div class="auth">
     <h3><strong>Amplify your night out.</strong></h3>
     <div class="col-sm-12 searchBorder">
-      <input ng-model="zipcode" type="text" maxlength="5" placeholder="Search by Zipcode">
+      <input class="zipInput" ng-model="zipcode" type="text" maxlength="5" placeholder="Search by Zipcode" ng-keyup="$event.keyCode == 13 && postalSearch()">
       <button type="submit" ng-click="postalSearch()">Search</button>
     </div>
     <div class="col-sm-4"> </div>

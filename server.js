@@ -77,7 +77,6 @@ app.get('/events', (req, res)=>{
   const clientIp = req.clientIp;
   const url = 'https://api.seatgeek.com/2/events?taxonomies.name=concert&geoip='+clientIp+'&range=30mi&per_page=201&client_id='+seatgeekId+'&client_secret='+seatgeekSecret;
   requestData(req, res, url, clientIp);
-
 });
 
 app.post('/zip', (req, res) => {
