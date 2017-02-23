@@ -10,6 +10,7 @@ angular.module('events.player', [])
 
   Events.getArtist(artist)
   .then((data) => {
+    console.log('daadaa', data);
     let lastChar = data[data.length - 1];
     $scope.check = lastChar === '*' ? 'N' : 'Y';
     if($scope.check === 'Y'){

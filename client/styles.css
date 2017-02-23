@@ -274,6 +274,10 @@ form {
   margin-top: 1%;
 }
 
+.zipInput:focus {
+  outline-width: 0;
+}
+
 .auth input {
   border-radius: .25em;
   border: none;

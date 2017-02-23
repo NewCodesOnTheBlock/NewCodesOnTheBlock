@@ -1,4 +1,5 @@
 /* jshint esversion:6 */
+'use strict'
 const express = require('express');
 const bodyparser = require('body-parser');
 const querystring = require('querystring');
@@ -28,7 +29,7 @@ app.use(requestIp.mw());
 
 const requestData = function(req, res, url, ip) {
   request(url, function(error,response,body){
-    console.log('BODY', body);
+    // console.log('BODY', body);
     console.log('URL', url);
     if (error) console.error(error);
     let bodyData = JSON.parse(body);
@@ -77,7 +78,6 @@ app.get('/events', (req, res)=>{
   const clientIp = req.clientIp;
   const url = 'https://api.seatgeek.com/2/events?taxonomies.name=concert&geoip='+clientIp+'&range=30mi&per_page=201&client_id='+seatgeekId+'&client_secret='+seatgeekSecret;
   requestData(req, res, url, clientIp);
-
 });
 
 app.post('/zip', (req, res) => {
@@ -120,52 +120,7 @@ app.post('/artist', (req, res)=> {
     }
   });
 });
-app.post('/youtu', (req,res)=> {
-  let key = youtube_key();
-  let artist = req.body.artist;
-  artist = artist.split(' ').join('+');
-  let input = artist;
-  let url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q={$input}&type=playlist&key={$key}`;
-  //send http request to Youtube for artist:
-  request(url, (error, response, body) => {
-    if(!error && response.statusCode === 200) {
-      let bodyData = JSON.parse(body);
-      if(bodyData.items.length > 0) {
-        let id = bodyData.items[0].id.playlistId;
-        let link = `https://www.youtube.com/embed?listType=playlist&list={$id}`;
-        res.send(link); //send back src for front-end <iframe> tag
-      } else {
-        res.send('Sorry, we don\'t have artist videos available');
-      }
-    }
-  });
-});
-app.post('/favorite', (req,res)=> {
-  let bodyData = req.body;
-  let artists = bodyData.artists.join('+');
-  let title = bodyData.title;
-  let url = bodyData.url;
-  let date = bodyData.date;
-  let city = bodyData.city;
-  let venueName = bodyData.venueName;
-  let user_id = req.cookies.cookieName;
-  db.run(`INSERT OR IGNORE INTO favorites (user_id, title, venueName, city, date, url, artists)
-          VALUES ($user_id, $title, $venueName, $city, $date, $url, $artists);`, {
-              $user_id: user_id,
-              $title: title,
-              $venueName: venueName,
-              $city: city,
-              $date: date,
-              $url: url,
-              $artists: artists
-            }, (err) => {
-              if (err) {
-                console.log('Insert event info error:', err);
-              }
-        });
-  res.send('success');
 
-});
 app.post('/map', (req, res)=>{
   let venue = req.body.venue;
   let city = req.body.city;
@@ -217,7 +172,7 @@ app.get('/callback', (req, res) => {
         json: true
       };
       request.get(options, (error, response, body) => {
-        console.log('here', body);
+        // console.log('here', body);
         let id = body.id;
         let user_name = body.display_name;
         let user_img = body.images[0].url;
